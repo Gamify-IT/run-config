@@ -10,3 +10,6 @@
 [submodule "minigames/crosswordpuzzle"]
 	path = minigames/crosswordpuzzle
 	url = git@github.com:Gamify-IT/crosswordpuzzle.git
+[submodule "login-frontend"]
+	path = login-frontend
+	url = git@github.com:Gamify-IT/stupro-login-demo.git
