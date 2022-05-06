@@ -1,0 +1,28 @@
+version: "3.8"
+services:
+  # login-frontend:
+  #   container_name: login-frontend
+  #   build: login-frontend
+  #   ports:
+  #     - "8000:8000"
+  login-backend:
+    container_name: login-backend
+    build: login-backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - login-db
+  login-db:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=super_secure_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - db:/var/lib/postgresql/data
+
+volumes:
+  db:
+    driver: local

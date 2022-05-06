@@ -1,15 +1,15 @@
 [submodule "login-backend"]
 	path = login-backend
-	url = git@github.com:Gamify-IT/login-backend.git
+	url = ../login-backend.git
 [submodule "overworld"]
 	path = overworld
-	url = git@github.com:Gamify-IT/overworld-demo.git
+	url = ../overworld-demo.git
 [submodule "minigames/Moorhuhn"]
 	path = minigames/Moorhuhn
-	url = git@github.com:Gamify-IT/Moorhuhn.git
+	url = ../Moorhuhn.git
 [submodule "minigames/crosswordpuzzle"]
 	path = minigames/crosswordpuzzle
-	url = git@github.com:Gamify-IT/crosswordpuzzle.git
+	url = ../crosswordpuzzle.git
 [submodule "login-frontend"]
 	path = login-frontend
-	url = git@github.com:Gamify-IT/stupro-login-demo.git
+	url = ../stupro-login-demo.git

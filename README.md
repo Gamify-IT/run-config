@@ -11,4 +11,10 @@ git submodule init
 git submodule update
 ```
 
-## [Learn more about git submodules](https://www.devroom.io/2020/03/09/the-git-submodule-cheat-sheet/)
+### [Learn more about git submodules](https://www.devroom.io/2020/03/09/the-git-submodule-cheat-sheet/)
+
+## Structure
+
+| service        | port | docker workdir  |
+| -------------- | ---- | --------------- |
+| login-frontend | 8080 | /login-frontend |
