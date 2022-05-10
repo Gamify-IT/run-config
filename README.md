@@ -15,6 +15,8 @@ git submodule update
 
 ## Structure
 
-| service        | port | docker workdir  |
-| -------------- | ---- | --------------- |
-| login-frontend | 8080 | /login-frontend |
+| service           | port |
+| ----------------- | ---- |
+| login-frontend    | 8080 |
+| minigame-moorhuhn | 7000 |
+| overworld         | 1234 |

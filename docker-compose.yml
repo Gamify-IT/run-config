@@ -5,23 +5,33 @@ services:
   #   build: login-frontend
   #   ports:
   #     - "8000:8000"
-  login-backend:
-    container_name: login-backend
-    build: login-backend
+  # login-backend:
+  #   container_name: login-backend
+  #   build: login-backend
+  #   ports:
+  #     - "8080:8080"
+  #   depends_on:
+  #     - login-db
+  # login-db:
+  #   image: postgres:14.1-alpine
+  #   restart: always
+  #   environment:
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=super_secure_password
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - db:/var/lib/postgresql/data
+  minigame-moorhuhn:
+    container_name: minigame-moorhuhn
+    build: minigames/Moorhuhn
     ports:
-      - "8080:8080"
-    depends_on:
-      - login-db
-  login-db:
-    image: postgres:14.1-alpine
-    restart: always
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=super_secure_password
+      - "7000:80"
+  overworld:
+    container_name: overworld
+    build: overworld
     ports:
-      - "5432:5432"
-    volumes:
-      - db:/var/lib/postgresql/data
+      - "1234:80"
 
 volumes:
   db:
