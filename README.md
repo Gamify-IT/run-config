@@ -15,8 +15,9 @@ git submodule update
 
 ## Structure
 
-| service           | port |
-| ----------------- | ---- |
-| login-frontend    | 8080 |
-| minigame-moorhuhn | 7000 |
-| overworld         | 1234 |
+| service        | port |
+| -------------- | ---- |
+| login-frontend | 8080 |
+| overworld      | 1234 |
+| moorhuhn       | 7000 |
+| git-card-game  | 7001 |
