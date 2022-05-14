@@ -7,25 +7,34 @@ services:
       - "8080:8080"
   login-frontend:
     container_name: login-frontend
-    image: ghcr.io/gamify-it/stupro-login-demo:main
+    image: ghcr.io/gamify-it/login-frontend:v0.0.2
     ports:
       - "8000:8000"
   overworld:
-    container_name: overworld-demo
-    image: ghcr.io/gamify-it/overworld-demo:v0.0.2
+    container_name: overworld
+    image: ghcr.io/gamify-it/overworld-demo:v0.0.4
     ports:
-      - "1234:80"
+      - "1234:1234"
   git-card-game:
     container_name: git-card-game
     image: ghcr.io/gamify-it/git-card-game:main
     ports:
-      - "7001:8000"
+      - "7001:80"
   login-db:
     image: postgres:14.1-alpine
     restart: always
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=super_secure_password
+  reverse-proxy:
+    container_name: reverse-proxy
+    image: nginx
+    restart: always
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+    ports:
+      - "80:80"
+      - "443:443"
 
 volumes:
   db:
