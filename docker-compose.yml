@@ -19,7 +19,7 @@ services:
     container_name: git-card-game
     image: ghcr.io/gamify-it/git-card-game:main
     ports:
-      - "7001:80"
+      - "7001:7001"
   login-db:
     image: postgres:14.1-alpine
     restart: always
