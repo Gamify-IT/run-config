@@ -5,6 +5,8 @@ services:
     image: ghcr.io/gamify-it/login-backend:main
     ports:
       - "4000:4000"
+    depends_on:
+      - login-db
     environment:
       - JWT_KEY=SecretKEY
       - POSTGRES_URL=postgresql://postgres:super_secure_password@login-db:5432/postgres
