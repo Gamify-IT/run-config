@@ -12,7 +12,7 @@ services:
       - POSTGRES_URL=postgresql://postgres:super_secure_password@login-db:5432/postgres
   login-frontend:
     container_name: login-frontend
-    image: ghcr.io/gamify-it/login-frontend:v0.0.2
+    image: ghcr.io/gamify-it/login-frontend:v0.0.4
     ports:
       - "8000:8000"
   overworld:
