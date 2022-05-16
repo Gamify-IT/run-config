@@ -17,12 +17,12 @@ services:
       - "8000:8000"
   overworld:
     container_name: overworld
-    image: ghcr.io/gamify-it/overworld-demo:v0.0.5
+    image: ghcr.io/gamify-it/overworld-demo:v0.0.7
     ports:
       - "1234:1234"
   git-card-game:
     container_name: git-card-game
-    image: ghcr.io/gamify-it/git-card-game:v0.0.4
+    image: ghcr.io/gamify-it/git-card-game:v0.0.5
     ports:
       - "7001:7001"
   login-db:
