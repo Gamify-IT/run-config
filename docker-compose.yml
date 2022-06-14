@@ -17,7 +17,7 @@ services:
   #backends
   login-backend:
     container_name: login-backend
-    image: ghcr.io/gamify-it/login-backend:main
+    image: ghcr.io/gamify-it/login-backend:latest
     expose:
       - "4000"
     depends_on:
