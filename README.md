@@ -1,4 +1,4 @@
-# Gamify-IT-prototype
+# Gamify-IT run-configuration
 
 A github repository containing the **login-backend**, the **overworld** and all **minigames** as images in a docker compose file.
 
