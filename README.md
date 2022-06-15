@@ -49,9 +49,10 @@ Then clone the repository into the home directory and switch into it with the fo
 ```
 cd ~/ && git clone https://github.com/Gamify-IT/run-config.git && cd run-config
 ```
-The remaining commands have to be run by a user with sudo priviledges or a root user.
+The remaining commands mostly have to be run by a user with sudo priviledges or a root user.
 To automatically update the docker-compose file we use a systemctl service with correspondig timer:
 ```
+chmod +x docker-configuration-update.sh
 sudo cp docker-configuration-update.service docker-configuration-update.timer /etc/systemd/system/
 sudo systemctl daemon-reload
 ```
