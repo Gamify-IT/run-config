@@ -1,0 +1,15 @@
+# Put this into /etc/systemd/system/
+
+[Unit]
+Description=update configuration of docker containers
+After=network.target
+
+[Service]
+Type=simple
+User=docker-user
+Restart=always
+WorkingDirectory=/home/docker-user/run-config/
+ExecStart=/home/docker-user/run-config/update-configuration.sh
+
+[Install]
+WantedBy=multi-user.target
