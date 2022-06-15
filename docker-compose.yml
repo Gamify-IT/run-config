@@ -6,6 +6,7 @@ services:
   login-db:
       container_name: login-db
       image: postgres:14-alpine
+      restart: always
       expose:
         - "5432"
       volumes:
@@ -20,6 +21,7 @@ services:
   login-backend:
     container_name: login-backend
     image: ghcr.io/gamify-it/login-backend:latest
+    restart: always
     expose:
       - "4000"
     depends_on:
@@ -33,30 +35,35 @@ services:
   login-frontend:
     container_name: login-frontend
     image: ghcr.io/gamify-it/login-frontend:latest
+    restart: always
     expose:
       - "8000"
 
   overworld:
     container_name: overworld
     image: ghcr.io/gamify-it/overworld-demo:latest
+    restart: always
     expose:
       - "1234"
 
   git-card-game:
     container_name: git-card-game
     image: ghcr.io/gamify-it/git-card-game:latest
+    restart: always
     expose:
       - "7001"
 
   moorhuhn:
     container_name: moorhuhn
     image: ghcr.io/gamify-it/moorhuhn:latest
+    restart: always
     expose:
       - "80"
 
   crosswordpuzzle:
     container_name: crosswordpuzzle
     image: ghcr.io/gamify-it/crosswordpuzzle:latest
+    restart: always
     expose:
       - "80"
 
@@ -70,6 +77,13 @@ services:
       - "80:80"
       - "443:443"
 
-volumes:
-  db:
-    driver: local
+
+  #updater
+  watchtower:
+    container_name: watchtower
+    image: containrrr/watchtower
+    restart: always
+    command: --interval 300
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  
