@@ -4,10 +4,33 @@ A github repository containing the **login-backend**, the **overworld** and all 
 
 ## Structure
 
-| service        | port | address             |
-| -------------- | ---- | ------------------- |
-| login-backend  | 4000 | /api                |
-| login-frontend | 8000 | /                   |
-| overworld      | 1234 | /overworld          |
-| moorhuhn       | 7000 | /minigames/moorhuhn |
-| git-card-game  | 7001 | /minigames/git-card-game |
+| service           | address                      |
+| ------------------| -----------------------------|
+| login-frontend    | /                            |
+| login-backend     | /api/login/                  |
+| overworld         | /overworld                   |
+| moorhuhn          | /minigames/moorhuhn          |
+| git-card-game     | /minigames/git-card-game     |
+| crosswordpuzzle   | /minigames/crosswordpuzzle/  |
+
+## User manual
+
+Run the docker containers with the following command:
+```sh
+docker-compose up -d
+```
+Now you can access them at [http://localhost:80](http://localhost:80).  
+To access them externally replace localhost with your IP.  
+
+To monitor the containers you can use the following command:
+```sh
+docker-compose ps -a
+```
+To stop the containers you can use the following command:
+```sh
+docker-compose stop
+```
+To stop and remove the containers you can use the following command:
+```sh
+docker-compose down
+```
