@@ -59,6 +59,7 @@ sudo systemctl daemon-reload
 Then we just need to enable the timer and run the service once to start all containers.
 ```
 sudo systemctl enable docker-configuration-update.timer
+sudo systemctl start docker-configuration-update.timer
 sudo systemctl start docker-configuration-update.service
 ```
 Now everything should be up and the configuration is updated daily.
