@@ -46,7 +46,7 @@ sudo usermod -aG docker docker-user
 sudo su docker-user
 ```
 Then clone the repository into the home directory and switch into it with the following command:
-```
+```bash
 cd ~/ && git clone https://github.com/Gamify-IT/run-config.git && cd run-config
 ```
 The remaining commands mostly have to be run by a user with sudo priviledges or a root user.
