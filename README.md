@@ -40,7 +40,7 @@ docker-compose down
 The containers are updated using watchtower configured in the docker-compose file. To update the docker-compose we use a systemctl timer.
 
 The configuration is written for  a user named `docker-user`. You can create and switch to it with the following lines or use another user and change the configuration.
-```
+```bash
 sudo adduser docker-user --disabled-password --gecos ""
 sudo usermod -aG docker docker-user
 sudo su docker-user
