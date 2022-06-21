@@ -1,0 +1,89 @@
+version: "3.7"
+
+services:
+
+  #databases
+  login-db-test:
+      container_name: login-db-test
+      image: postgres:14-alpine
+      restart: always
+      expose:
+        - "5432"
+      volumes:
+      - ./data/login-db-test:/var/lib/postgresql/data
+      restart: always
+      environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=super_secure_password
+
+
+  #backends
+  login-backend-test:
+    container_name: login-backend-test
+    image: ghcr.io/gamify-it/login-backend:main
+    restart: always
+    expose:
+      - "4000"
+    depends_on:
+      - login-db-test
+    environment:
+      - JWT_KEY=SecretKEY
+      - POSTGRES_URL=postgresql://postgres:super_secure_password@login-db-test:5432/
+
+
+  #frontends
+  login-frontend-test:
+    container_name: login-frontend-test
+    image: ghcr.io/gamify-it/login-frontend:main
+    restart: always
+    expose:
+      - "8000"
+
+  overworld-test:
+    container_name: overworld-test
+    image: ghcr.io/gamify-it/overworld-demo:main
+    restart: always
+    expose:
+      - "1234"
+
+  git-card-game-test:
+    container_name: git-card-game-test
+    image: ghcr.io/gamify-it/git-card-game:main
+    restart: always
+    expose:
+      - "7001"
+
+  moorhuhn-test:
+    container_name: moorhuhn-test
+    image: ghcr.io/gamify-it/moorhuhn:main
+    restart: always
+    expose:
+      - "80"
+
+  crosswordpuzzle-test:
+    container_name: crosswordpuzzle-test
+    image: ghcr.io/gamify-it/crosswordpuzzle:main
+    restart: always
+    expose:
+      - "80"
+
+  regex-game-test:
+    container_name: regex-game-test
+    image: ghcr.io/gamify-it/regex-game:main
+    restart: always
+    expose:
+      - "80"
+
+  # reverse-proxy
+  reverse-proxy-test:
+    container_name: reverse-proxy-test
+    image: nginx
+    restart: always
+    volumes:
+      - ./nginx/conf.d-test:/etc/nginx/conf.d:ro
+    ports:
+      - "8000:8000"
+
+
+  #updater from prod build is used
+  

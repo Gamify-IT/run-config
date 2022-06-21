@@ -35,6 +35,8 @@ To stop and remove the containers you can use the following command:
 docker-compose down
 ```
 
+If you want to run the test-containers use `docker-compose -f docker-compose-test.yaml` instead of `docker-compose`.
+
 ## setup deployment with automatic updates
 
 The containers are updated using watchtower configured in the docker-compose file. To update the docker-compose we use a systemctl timer.
