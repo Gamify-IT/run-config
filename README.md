@@ -12,6 +12,7 @@ A github repository containing the **login-backend**, the **overworld** and all 
 | moorhuhn          | /minigames/moorhuhn          |
 | git-card-game     | /minigames/git-card-game     |
 | crosswordpuzzle   | /minigames/crosswordpuzzle/  |
+| regex-game        | /minigames/regex-game/       |
 
 ## User manual
 
