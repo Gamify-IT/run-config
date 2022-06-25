@@ -13,6 +13,7 @@ A github repository containing the **login-backend**, the **overworld** and all 
 | git-card-game     | /minigames/git-card-game     |
 | crosswordpuzzle   | /minigames/crosswordpuzzle/  |
 | regex-game        | /minigames/regex-game/       |
+| bugfinder         | /minigames/bugfinder/       |
 
 ## User manual
 

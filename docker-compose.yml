@@ -74,6 +74,13 @@ services:
     expose:
       - "80"
 
+  bugfinder:
+    container_name: bugfinder
+    image: ghcr.io/gamify-it/bugfinder:latest
+    restart: always
+    expose:
+      - "80"
+
   # reverse-proxy
   reverse-proxy:
     container_name: reverse-proxy
