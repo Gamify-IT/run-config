@@ -28,6 +28,7 @@ services:
       - login-db-test
     environment:
       - JWT_KEY=SecretKEY
+      - JWT_VALIDITY_DURATION=720h
       - POSTGRES_URL=postgresql://postgres:super_secure_password@login-db-test:5432/
 
 
