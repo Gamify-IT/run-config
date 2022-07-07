@@ -81,6 +81,13 @@ services:
     expose:
       - "80"
 
+  lecturer-interface:
+    container_name: lecturer-interface
+    image: ghcr.io/gamify-it/lecturer-interface:main
+    restart: always
+    expose:
+      - "80"
+
   # reverse-proxy
   reverse-proxy:
     container_name: reverse-proxy
