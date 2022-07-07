@@ -83,7 +83,7 @@ services:
 
   lecturer-interface:
     container_name: lecturer-interface
-    image: ghcr.io/gamify-it/lecturer-interface:main
+    image: ghcr.io/gamify-it/lecturer-interface:latest
     restart: always
     expose:
       - "80"
