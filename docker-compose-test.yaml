@@ -16,6 +16,45 @@ services:
         - POSTGRES_USER=postgres
         - POSTGRES_PASSWORD=super_secure_password
 
+  overworld-db-test:
+      container_name: overworld-db-test
+      image: postgres:14-alpine
+      restart: always
+      expose:
+        - "5432"
+      volumes:
+      - ./data/overworld-db-test:/var/lib/postgresql/data
+      restart: always
+      environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
+
+  moorhuhn-db-test:
+      container_name: moorhuhn-db-test
+      image: postgres:14-alpine
+      restart: always
+      expose:
+        - "5432"
+      volumes:
+      - ./data/moorhuhn-db-test:/var/lib/postgresql/data
+      restart: always
+      environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
+
+  crosswordpuzzle-db-test:
+      container_name: moorhuhn-db-test
+      image: postgres:14-alpine
+      restart: always
+      expose:
+        - "5432"
+      volumes:
+      - ./data/moorhuhn-db-test:/var/lib/postgresql/data
+      restart: always
+      environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
+
 
   #backends
   login-backend-test:
@@ -31,6 +70,45 @@ services:
       - JWT_VALIDITY_DURATION=720h
       - POSTGRES_URL=postgresql://postgres:super_secure_password@login-db-test:5432/
 
+  overworld-backend-test:
+    container_name:   overworld-backend-test
+    image: ghcr.io/gamify-it/overworld-backend:main
+    restart: always
+    expose:
+      - "80"
+    depends_on:
+      - overworld-db-test
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_URL=postgresql://overworld-db-test:5432/postgres
+    
+  crosswordpuzzle-backend-test:
+    container_name:   crosswordpuzzle-backend-test
+    image: ghcr.io/gamify-it/crosswordpuzzle-backend:main
+    restart: always
+    expose:
+      - "80"
+    depends_on:
+      - crosswordpuzzle-db-test
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_URL=postgresql://moorhuhn-db-test:5432/postgres
+
+  moorhuhn-backend-test:
+    container_name:   moorhuhn-backend-test
+    image: ghcr.io/gamify-it/moorhuhn-backend:main
+    restart: always
+    expose:
+      - "80"
+    depends_on:
+      - moorhuhn-db-test
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_URL=postgresql://moorhuhn-db-test:5432/postgres
+
 
   #frontends
   login-frontend-test:
@@ -42,10 +120,10 @@ services:
 
   overworld-test:
     container_name: overworld-test
-    image: ghcr.io/gamify-it/overworld-demo:main
+    image: ghcr.io/gamify-it/overworld:main
     restart: always
     expose:
-      - "1234"
+      - "80"
 
   git-card-game-test:
     container_name: git-card-game-test

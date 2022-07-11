@@ -1,19 +1,18 @@
 # Gamify-IT run-configuration
 
-A github repository containing the **login-backend**, the **overworld** and all **minigames** as images in a docker compose file.
+A github repository containing the **login**, the **overworld** and all **minigames** as images in a docker compose file.
 
 ## Structure
 
 | service           | address                      |
 | ------------------| -----------------------------|
 | login-frontend    | /                            |
-| login-backend     | /api/login/                  |
 | overworld         | /overworld                   |
 | moorhuhn          | /minigames/moorhuhn          |
 | git-card-game     | /minigames/git-card-game     |
-| crosswordpuzzle   | /minigames/crosswordpuzzle/  |
-| regex-game        | /minigames/regex-game/       |
-| bugfinder         | /minigames/bugfinder/        |
+| crosswordpuzzle   | /minigames/crosswordpuzzle   |
+| regex-game        | /minigames/regex-game        |
+| bugfinder         | /minigames/bugfinder         |
 | lecturer-interface| /lecturer-interface          |
 
 ## User manual
