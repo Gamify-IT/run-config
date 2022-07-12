@@ -28,6 +28,7 @@ services:
       - login-db
     environment:
       - JWT_KEY=SecretKEY
+      - JWT_VALIDITY_DURATION=720h
       - POSTGRES_URL=postgresql://postgres:super_secure_password@login-db:5432/
 
 
@@ -37,7 +38,7 @@ services:
     image: ghcr.io/gamify-it/login-frontend:latest
     restart: always
     expose:
-      - "8000"
+      - "80"
 
   overworld:
     container_name: overworld
