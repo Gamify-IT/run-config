@@ -90,7 +90,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_URL=postgresql://moorhuhn-db-test:5432/postgres
+      - POSTGRES_URL=postgresql://crosswordpuzzle-db-test:5432/postgres
 
   moorhuhn-backend-test:
     container_name:   moorhuhn-backend-test
