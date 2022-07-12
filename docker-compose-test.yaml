@@ -112,7 +112,7 @@ services:
     image: ghcr.io/gamify-it/login-frontend:main
     restart: always
     expose:
-      - "8000"
+      - "80"
 
   overworld-test:
     container_name: overworld-test
