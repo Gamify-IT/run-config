@@ -4,17 +4,52 @@ services:
 
   #databases
   login-db:
-      container_name: login-db
-      image: postgres:14-alpine
-      restart: always
-      expose:
-        - "5432"
-      volumes:
+    container_name: login-db
+    image: postgres:14-alpine
+    restart: always
+    expose:
+      - "5432"
+    volumes:
       - ./data/login-db:/var/lib/postgresql/data
-      restart: always
-      environment:
-        - POSTGRES_USER=postgres
-        - POSTGRES_PASSWORD=super_secure_password
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=super_secure_password
+
+  overworld-db:
+    container_name: overworld-db
+    image: postgres:14-alpine
+    restart: always
+    expose:
+      - "5432"
+    volumes:
+      - ./data/overworld-db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  moorhuhn-db:
+    container_name: moorhuhn-db
+    image: postgres:14-alpine
+    restart: always
+    expose:
+      - "5432"
+    volumes:
+      - ./data/moorhuhn-db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  crosswordpuzzle-db:
+    container_name: crossword-db
+    image: postgres:14-alpine
+    restart: always
+    expose:
+      - "5432"
+    volumes:
+      - ./data/crossword-db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
 
 
   #backends
@@ -31,6 +66,45 @@ services:
       - JWT_VALIDITY_DURATION=720h
       - POSTGRES_URL=postgresql://postgres:super_secure_password@login-db:5432/
 
+  overworld-backend:
+    container_name:   overworld-backend
+    image: ghcr.io/gamify-it/overworld-backend:latest
+    restart: always
+    expose:
+      - "80"
+    depends_on:
+      - overworld-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_URL=postgresql://overworld-db:5432/postgres
+
+  crosswordpuzzle-backend:
+    container_name:   crosswordpuzzle-backend
+    image: ghcr.io/gamify-it/crosswordpuzzle-backend:latest
+    restart: always
+    expose:
+      - "80"
+    depends_on:
+      - crosswordpuzzle-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_URL=postgresql://crosswordpuzzle-db:5432/postgres
+
+  moorhuhn-backend:
+    container_name:   moorhuhn-backend
+    image: ghcr.io/gamify-it/moorhuhn-backend:latest
+    restart: always
+    expose:
+      - "80"
+    depends_on:
+      - moorhuhn-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_URL=postgresql://moorhuhn-db:5432/postgres
+
 
   #frontends
   login-frontend:
@@ -42,10 +116,10 @@ services:
 
   overworld:
     container_name: overworld
-    image: ghcr.io/gamify-it/overworld-demo:latest
+    image: ghcr.io/gamify-it/overworld:latest
     restart: always
     expose:
-      - "1234"
+      - "80"
 
   git-card-game:
     container_name: git-card-game
@@ -101,7 +175,6 @@ services:
       - "80:80"
       - "443:443"
 
-
   #updater
   watchtower:
     container_name: watchtower
@@ -110,4 +183,3 @@ services:
     command: --interval 300
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-  
