@@ -17,6 +17,8 @@ A github repository containing the **login**, the **overworld** and all **miniga
 
 ## User manual
 
+To deploy the container you need to download the certificates from the [secrets repo](https://github.com/Gamify-IT/secrets/tree/main/ssl-certs) and save them in `./ssl-certs/`.
+
 Run the docker containers with the following command:
 ```sh
 docker-compose up -d
@@ -53,7 +55,8 @@ Then clone the repository into the home directory and switch into it with the fo
 ```bash
 cd ~/ && git clone https://github.com/Gamify-IT/run-config.git && cd run-config
 ```
-The remaining commands mostly have to be run by a user with sudo priviledges or a root user.
+To deploy the container you need to download the certificates from the [secrets repo](https://github.com/Gamify-IT/secrets/tree/main/ssl-certs) and save them in `./ssl-certs/`. \
+The remaining commands mostly have to be run by a user with sudo priviledges or a root user. \
 To automatically update the docker-compose file we use a systemctl service with correspondig timer:
 ```bash
 chmod +x docker-configuration-update.sh

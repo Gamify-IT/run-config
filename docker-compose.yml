@@ -96,6 +96,7 @@ services:
     restart: always
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./ssl-certs:/etc/ssl-certs:ro
     ports:
       - "80:80"
       - "443:443"
