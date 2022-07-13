@@ -170,8 +170,10 @@ services:
     restart: always
     volumes:
       - ./nginx/conf.d-test:/etc/nginx/conf.d:ro
+      - ./ssl-certs:/etc/ssl-certs:ro
     ports:
       - "8000:8000"
+      - "8443:8443"
 
 
   #updater from prod build is used
