@@ -58,7 +58,7 @@ services:
     image: ghcr.io/gamify-it/login-backend:latest
     restart: always
     expose:
-      - "4000"
+      - "80"
     depends_on:
       - login-db
     environment:
