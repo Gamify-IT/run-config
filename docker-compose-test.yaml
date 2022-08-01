@@ -126,7 +126,7 @@ services:
     image: ghcr.io/gamify-it/git-card-game:main
     restart: always
     expose:
-      - "7001"
+      - "80"
 
   moorhuhn-test:
     container_name: moorhuhn-test
