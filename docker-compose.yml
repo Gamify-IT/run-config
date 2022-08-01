@@ -126,7 +126,7 @@ services:
     image: ghcr.io/gamify-it/git-card-game:latest
     restart: always
     expose:
-      - "7001"
+      - "80"
 
   moorhuhn:
     container_name: moorhuhn
