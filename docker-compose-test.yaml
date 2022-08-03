@@ -27,14 +27,14 @@ services:
         - POSTGRES_USER=postgres
         - POSTGRES_PASSWORD=postgres
 
-  moorhuhn-db-test:
-      container_name: moorhuhn-db-test
+  chickenshock-db-test:
+      container_name: chickenshock-db-test
       image: postgres:14-alpine
       restart: always
       expose:
         - "5432"
       volumes:
-      - ./data/moorhuhn-db-test:/var/lib/postgresql/data
+      - ./data/chickenshock-db-test:/var/lib/postgresql/data
       environment:
         - POSTGRES_USER=postgres
         - POSTGRES_PASSWORD=postgres
@@ -92,18 +92,18 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_URL=postgresql://crosswordpuzzle-db-test:5432/postgres
 
-  moorhuhn-backend-test:
-    container_name:   moorhuhn-backend-test
-    image: ghcr.io/gamify-it/moorhuhn-backend:main
+  chickenshock-backend-test:
+    container_name:   chickenshock-backend-test
+    image: ghcr.io/gamify-it/chickenshock-backend:main
     restart: always
     expose:
       - "80"
     depends_on:
-      - moorhuhn-db-test
+      - chickenshock-db-test
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_URL=postgresql://moorhuhn-db-test:5432/postgres
+      - POSTGRES_URL=postgresql://chickenshock-db-test:5432/postgres
 
 
   #frontends
@@ -128,9 +128,9 @@ services:
     expose:
       - "80"
 
-  moorhuhn-test:
-    container_name: moorhuhn-test
-    image: ghcr.io/gamify-it/moorhuhn:main
+  chickenshock-test:
+    container_name: chickenshock-test
+    image: ghcr.io/gamify-it/chickenshock:main
     restart: always
     expose:
       - "80"
