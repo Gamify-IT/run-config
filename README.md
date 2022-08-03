@@ -8,7 +8,7 @@ A github repository containing the **login**, the **overworld** and all **miniga
 | ------------------| -----------------------------|
 | login-frontend    | /                            |
 | overworld         | /overworld                   |
-| moorhuhn          | /minigames/moorhuhn          |
+| chickenshock          | /minigames/chickenshock          |
 | git-card-game     | /minigames/git-card-game     |
 | crosswordpuzzle   | /minigames/crosswordpuzzle   |
 | regex-game        | /minigames/regex-game        |
