@@ -51,6 +51,18 @@ services:
         - POSTGRES_USER=postgres
         - POSTGRES_PASSWORD=postgres
 
+  finitequiz-db-test:
+      container_name: finitequiz-db-test
+      image: postgres:14-alpine
+      restart: always
+      expose:
+        - "5432"
+      volumes:
+      - ./data/finitequiz-db-test:/var/lib/postgresql/data
+      environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
+
 
   #backends
   login-backend-test:
@@ -104,6 +116,19 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_URL=postgresql://chickenshock-db-test:5432/postgres
+
+  finitequiz-backend-test:
+    container_name:   finitequiz-backend-test
+    image: ghcr.io/gamify-it/finitequiz-backend:main
+    restart: always
+    expose:
+      - "80"
+    depends_on:
+      - finitequiz-db-test
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_URL=postgresql://finitequiz-db-test:5432/postgres
 
 
   #frontends
@@ -159,6 +184,13 @@ services:
   lecturer-interface-test:
     container_name: lecturer-interface-test
     image: ghcr.io/gamify-it/lecturer-interface:main
+    restart: always
+    expose:
+      - "80"
+
+  finitequiz-test:
+    container_name: finitequiz-test
+    image: ghcr.io/gamify-it/finitequiz:main
     restart: always
     expose:
       - "80"
