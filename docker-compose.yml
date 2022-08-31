@@ -3,17 +3,18 @@ version: "3.7"
 services:
 
   #databases
-  login-db:
-    container_name: login-db
+  keycloak-db:
+    container_name: keycloak-db
     image: postgres:14-alpine
     restart: always
     expose:
       - "5432"
     volumes:
-      - ./data/login-db:/var/lib/postgresql/data
+      - ./data/keycloak-db:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=super_secure_password
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=keycloak
 
   overworld-db:
     container_name: overworld-db
@@ -64,18 +65,27 @@ services:
         - POSTGRES_PASSWORD=postgres
 
   #backends
-  login-backend:
-    container_name: login-backend
-    image: ghcr.io/gamify-it/login-backend:latest
-    restart: always
+  keycloak:
+    container_name: keycloak
     expose:
       - "80"
-    depends_on:
-      - login-db
+    image: quay.io/keycloak/keycloak:19.0
+    command:
+      - "start"
     environment:
-      - JWT_KEY=SecretKEY
-      - JWT_VALIDITY_DURATION=720h
-      - POSTGRES_URL=postgresql://postgres:super_secure_password@login-db:5432/
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://keycloak-db:5432/postgres
+      KC_DB_USERNAME: postgres
+      KC_DB_PASSWORD: postgres
+
+      KC_HOSTNAME: goulburn.informatik.uni-stuttgart.de
+      KC_HOSTNAME_PORT: 443
+      KC_PROXY: edge
+      KC_HTTP_RELATIVE_PATH: /keycloak
+      KC_HTTP_PORT: 80
 
   overworld-backend:
     container_name:   overworld-backend
@@ -120,7 +130,7 @@ services:
 
   finitequiz-backend:
     container_name:   finitequiz-backend
-    image: ghcr.io/gamify-it/finitequiz-backend:main
+    image: ghcr.io/gamify-it/finitequiz-backend:latest
     restart: always
     expose:
       - "80"
@@ -134,9 +144,9 @@ services:
 
 
   #frontends
-  login-frontend:
-    container_name: login-frontend
-    image: ghcr.io/gamify-it/login-frontend:latest
+  landing-page:
+    container_name: landing-page
+    image: ghcr.io/gamify-it/landing-page:latest
     restart: always
     expose:
       - "80"
@@ -192,7 +202,7 @@ services:
 
   finitequiz:
     container_name: finitequiz
-    image: ghcr.io/gamify-it/finitequiz:main
+    image: ghcr.io/gamify-it/finitequiz:latest
     restart: always
     expose:
       - "80"
