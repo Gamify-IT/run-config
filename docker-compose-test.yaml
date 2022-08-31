@@ -103,6 +103,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_URL=postgresql://crosswordpuzzle-db-test:5432/postgres
+      - OVERWORLD_URL=http://overworld-backend-test/api/v1
 
   chickenshock-backend-test:
     container_name:   chickenshock-backend-test
@@ -116,6 +117,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_URL=postgresql://chickenshock-db-test:5432/postgres
+      - OVERWORLD_URL=http://overworld-backend-test/api/v1
 
   finitequiz-backend-test:
     container_name:   finitequiz-backend-test
@@ -129,6 +131,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_URL=postgresql://finitequiz-db-test:5432/postgres
+      - OVERWORLD_URL=http://overworld-backend-test/api/v1
 
 
   #frontends
