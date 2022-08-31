@@ -208,6 +208,13 @@ services:
     expose:
       - "80"
 
+  third-party-license-notice-test:
+    container_name: third-party-license-notice-test
+    image: ghcr.io/gamify-it/third-party-license-notice:latest
+    restart: always
+    expose:
+      - "80"
+
   # reverse-proxy
   reverse-proxy-test:
     container_name: reverse-proxy-test
