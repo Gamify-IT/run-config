@@ -3,17 +3,17 @@ version: "3.7"
 services:
 
   #databases
-  login-db-test:
-      container_name: login-db-test
-      image: postgres:14-alpine
-      restart: always
-      expose:
-        - "5432"
-      volumes:
-      - ./data/login-db-test:/var/lib/postgresql/data
-      environment:
-        - POSTGRES_USER=postgres
-        - POSTGRES_PASSWORD=super_secure_password
+  keycloak-db-test:
+    container_name: keycloak-db-test
+    image: postgres:14-alpine
+    restart: always
+    expose:
+      - "5432"
+    volumes:
+      - ./data/keycloak-db-test:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
 
   overworld-db-test:
       container_name: overworld-db-test
@@ -51,20 +51,41 @@ services:
         - POSTGRES_USER=postgres
         - POSTGRES_PASSWORD=postgres
 
+  finitequiz-db-test:
+      container_name: finitequiz-db-test
+      image: postgres:14-alpine
+      restart: always
+      expose:
+        - "5432"
+      volumes:
+      - ./data/finitequiz-db-test:/var/lib/postgresql/data
+      environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
+
 
   #backends
-  login-backend-test:
-    container_name: login-backend-test
-    image: ghcr.io/gamify-it/login-backend:main
-    restart: always
+  keycloak-test:
+    container_name: keycloak-test
     expose:
       - "80"
-    depends_on:
-      - login-db-test
+    image: quay.io/keycloak/keycloak:19.0
+    command:
+      - "start"
     environment:
-      - JWT_KEY=SecretKEY
-      - JWT_VALIDITY_DURATION=720h
-      - POSTGRES_URL=postgresql://postgres:super_secure_password@login-db-test:5432/
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://keycloak-db-test:5432/postgres
+      KC_DB_USERNAME: postgres
+      KC_DB_PASSWORD: postgres
+
+      KC_HOSTNAME: goulburn.informatik.uni-stuttgart.de
+      KC_HOSTNAME_PORT: 8443
+      KC_PROXY: edge
+      KC_HTTP_RELATIVE_PATH: /keycloak
+      KC_HTTP_PORT: 80
 
   overworld-backend-test:
     container_name:   overworld-backend-test
@@ -91,6 +112,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_URL=postgresql://crosswordpuzzle-db-test:5432/postgres
+      - OVERWORLD_URL=http://overworld-backend-test/api/v1
 
   chickenshock-backend-test:
     container_name:   chickenshock-backend-test
@@ -104,12 +126,27 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_URL=postgresql://chickenshock-db-test:5432/postgres
+      - OVERWORLD_URL=http://overworld-backend-test/api/v1
+
+  finitequiz-backend-test:
+    container_name:   finitequiz-backend-test
+    image: ghcr.io/gamify-it/finitequiz-backend:main
+    restart: always
+    expose:
+      - "80"
+    depends_on:
+      - finitequiz-db-test
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_URL=postgresql://finitequiz-db-test:5432/postgres
+      - OVERWORLD_URL=http://overworld-backend-test/api/v1
 
 
   #frontends
-  login-frontend-test:
-    container_name: login-frontend-test
-    image: ghcr.io/gamify-it/login-frontend:main
+  landing-page-test:
+    container_name: landing-page-test
+    image: ghcr.io/gamify-it/landing-page:main
     restart: always
     expose:
       - "80"
@@ -159,6 +196,20 @@ services:
   lecturer-interface-test:
     container_name: lecturer-interface-test
     image: ghcr.io/gamify-it/lecturer-interface:main
+    restart: always
+    expose:
+      - "80"
+
+  finitequiz-test:
+    container_name: finitequiz-test
+    image: ghcr.io/gamify-it/finitequiz:main
+    restart: always
+    expose:
+      - "80"
+
+  third-party-license-notice-test:
+    container_name: third-party-license-notice-test
+    image: ghcr.io/gamify-it/third-party-license-notice:main
     restart: always
     expose:
       - "80"
