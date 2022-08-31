@@ -98,6 +98,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_URL=postgresql://overworld-db-test:5432/postgres
+      - CHICKENSHOCK_URL=http://chickenshock-backend/api/v1
     
   crosswordpuzzle-backend-test:
     container_name:   crosswordpuzzle-backend-test
