@@ -14,7 +14,6 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=keycloak
 
   overworld-db-test:
       container_name: overworld-db-test
