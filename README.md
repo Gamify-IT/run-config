@@ -21,25 +21,25 @@ To deploy the container you need to download the certificates from the [secrets 
 
 Run the docker containers with the following command:
 ```sh
-docker-compose up -d
+docker compose up -d
 ```
 Now you can access them at [http://localhost:80](http://localhost:80).  
 To access them externally replace localhost with your IP.  
 
 To monitor the containers you can use the following command:
 ```sh
-docker-compose ps -a
+docker compose ps -a
 ```
 To stop the containers you can use the following command:
 ```sh
-docker-compose stop
+docker compose stop
 ```
 To stop and remove the containers you can use the following command:
 ```sh
-docker-compose down
+docker compose down
 ```
 
-If you want to run the test-containers use `docker-compose -f docker-compose-test.yaml` instead of `docker-compose`.
+If you want to run the test-containers use `docker compose -f docker-compose-test.yaml` instead of `docker compose`.
 
 ## setup deployment with automatic updates
 
