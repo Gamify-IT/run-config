@@ -39,7 +39,7 @@ To stop and remove the containers you can use the following command:
 docker compose down
 ```
 
-If you want to run the test-containers use `docker compose -f docker-compose-test.yaml` instead of `docker compose`.
+If you want to run the test-containers use `docker compose -f docker-compose-test.yaml up` instead of `docker compose up -d`.
 
 ## setup deployment with automatic updates
 
