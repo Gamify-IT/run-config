@@ -70,6 +70,7 @@ services:
     expose:
       - "80"
     image: quay.io/keycloak/keycloak:19.0
+    restart: always
     command:
       - "start"
     environment:
