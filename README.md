@@ -32,6 +32,7 @@ A hosting folder contains the following files:
 - databases at `data/`
     - a folder where all databases are placed, automatically created at startup
 - realm-ttemplate for keycloak at `keycloak-realm-template.json`
+    - a template realm to import for a quick start
 
 To run the project by your own beside cloning the template folder a few configuration steps need to be done. The following guides you through all steps. Also make sure you installed [docker](https://docs.docker.com/engine/install/).
 
@@ -93,9 +94,9 @@ http_port=8000
 https_port=8443
 ```
 
-## Run
+### 4. Run
 
-If you finished the setup you can run the project with the following commands: 
+If you finished the above steps you can run the project with the following commands: 
 
 Run the docker containers with the following command:
 ```sh
@@ -117,6 +118,14 @@ To stop and remove the containers you can use the following command:
 ```sh
 docker compose down
 ```
+
+### 5. Setup keycloak
+
+Go to the keycloak admin console at `/keycloak/admin/master/console/`. \
+There you click on the realm selection on the top-left and click `Create Realm`. \
+Then you upload the `keycloak-realm-template.json` and click Create.
+
+Now the keycloak setup for the project is finished and you can create users at the `Users` tab.
 
 ## Advanced Configuration
 
