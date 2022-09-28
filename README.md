@@ -131,15 +131,27 @@ Now the keycloak setup for the project is finished and you can create users at t
 
 ### Run services on different hosts
 
-It is possible to run the servcies on different hosts. To run a service on a different host remove it from the `docker-compose.yaml` and add it to a new docker compose file for the other host (for example `docker-compose-host2.yaml`).
+It is possible to run the services on different hosts.
+To run a service on a different host remove it from the `docker-compose.yaml` and add it to a new docker compose file for the other host (for example `docker-compose-host2.yaml`).
 
-To make the services working you need to adjust all linkages to the outsourced service and all linkages of the outsourced service. Therefor you also need to make the services accesable from the other host. This can be achieved by publishing the needed port.
-For example if you published the overworld-backend on Port 8080 on host `overworld-host` you change
+To make the services working you need to adjust all linkages to the outsourced service and all linkages of the outsourced service.
+Therefor you need to edit the docker compose file (`docker-compose.yaml`) and the nginx configuration (`nginx/conf.d/default.conf`).
+You also need to make the services accesable from the other host. This can be achieved by publishing the needed port.
+
+For example if you published the overworld-backend on Port 8080 on host `overworld-host` you change in the `docker-compose.yaml`
 ```
 - OVERWORLD_URL=http://overworld-backend/api/v1
 ```
 to
 ```
-- OVERWORLD_URL=http://overworld-host:8080/overworld/api/v1
+- OVERWORLD_URL=http://overworld-host:8080/api/v1
+```
+and in the `nginx/conf.d/default.conf`
+```
+set $overworld_backend overworld-backend
+```
+to
+```
+set $overworld_backend overworld-host:8080
 ```
 Then you can start the docker-compose files on the corresponding host.
