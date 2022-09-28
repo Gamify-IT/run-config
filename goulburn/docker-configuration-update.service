@@ -8,7 +8,7 @@ After=network.target
 Type=simple
 User=docker-user
 WorkingDirectory=/home/docker-user/run-config/
-ExecStart=/home/docker-user/run-config/docker-configuration-update.sh
+ExecStart=/home/docker-user/run-config/goulburn/docker-configuration-update.sh
 
 [Install]
 WantedBy=multi-user.target
