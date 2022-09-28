@@ -31,14 +31,14 @@ A hosting folder contains the following files:
     - a folder containing the ssl certifates, not present in the template
 - databases at `data/`
     - a folder where all databases are placed, automatically created at startup
-- realm-ttemplate for keycloak at `keycloak-realm-template.json`
+- realm-template for keycloak at `keycloak-realm-template.json`
     - a template realm to import for a quick start
 
 To run the project by your own beside cloning the template folder a few configuration steps need to be done. The following guides you through all steps. Also make sure you installed [docker](https://docs.docker.com/engine/install/).
 
 ### 1. Place the ssl cert
 
-Create a folder called `ssl-certs` and place the ssl-certtificate and the correspondig private key there. An exemplary resulting folder structure looks like this: \
+Create a folder called `ssl-certs` and place the ssl-certificate and the correspondig private key there. An exemplary resulting folder structure looks like this: \
 `ssl-certs/my-domain/cert.crt` \
 `ssl-certs/my-domain/privatekey.key`
 
