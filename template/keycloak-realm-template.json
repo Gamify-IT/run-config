@@ -61,11 +61,7 @@
         "composite": false,
         "clientRole": false,
         "containerId": "b1fffe98-6c87-4c74-9607-fb4b4c6f837d",
-        "attributes": {
-          "asdf": [
-            "asdf"
-          ]
-        }
+        "attributes": {}
       },
       {
         "id": "654ba425-fc4c-481b-b168-654e0c40c999",

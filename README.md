@@ -44,7 +44,7 @@ Create a folder called `ssl-certs` and place the ssl-certtificate and the corres
 
 ### 2. Adapt the nginx configuration
 
-Open the nginx configuration file places at `nginx/conf.d/default.conf`.
+Open the nginx configuration file placed at `nginx/conf.d/default.conf`.
 
 The head of the file looks like this:
 ```
@@ -63,7 +63,7 @@ server {
     ssl_certificate_key /etc/ssl-certs/my-domain/privatekey.key;
 ```
 
-Here you need to set the ports for http and https in the listen directive. If you user another port than 443 for https you also have to add the port to the redirect. An example with port 8000 for http and port 8443 for https looks like this:
+Here, you need to set the ports for HTTP and HTTPS in the listen directive. If you use another port than `443` for HTTPS, you also have to add the port to the redirect. An example with port `8000` for HTTP and port `8443` for HTTPS looks like this:
 ```
 server {
     listen     8000;
@@ -87,7 +87,7 @@ url=https://example.com
 http_port=80
 https_port=443
 ```
-If you run at `example.com` on 8000 for http and 8443 for https the resulting file looks like this:
+If you run at `example.com` on 8000 for HTTP and 8443 for HTTPS the resulting file looks like this:
 ```
 url=https://example.com:8443
 http_port=8000
