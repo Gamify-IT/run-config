@@ -7,7 +7,7 @@ After=network.target
 [Service]
 Type=simple
 User=docker-user
-WorkingDirectory=/home/docker-user/run-config/
+WorkingDirectory=/home/docker-user/run-config/goulburn/
 ExecStart=/home/docker-user/run-config/goulburn/docker-configuration-update.sh
 
 [Install]
