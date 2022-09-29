@@ -103,7 +103,7 @@ services:
       - CROSSWORDPUZZLE_URL=http://crosswordpuzzle-backend-test/api/v1
       - FINITEQUIZ_URL=http://finitequiz-backend-test/api/v1
       - BUGFINDER_URL=http://bugfinder-backend-test/api/v1
-      - KEYCLOAK_ISSUER=https://goulburn.informatik.uni-stuttgart.de:8443/keycloak/realms/Gamify-IT
+      - KEYCLOAK_ISSUER=${url}:8443/keycloak/realms/Gamify-IT
       - KEYCLOAK_URL=http://keycloak/keycloak/realms/Gamify-IT
     
   crosswordpuzzle-backend-test:
@@ -119,7 +119,7 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_URL=postgresql://crosswordpuzzle-db-test:5432/postgres
       - OVERWORLD_URL=http://overworld-backend-test/api/v1
-      - KEYCLOAK_ISSUER=https://goulburn.informatik.uni-stuttgart.de:8443/keycloak/realms/Gamify-IT
+      - KEYCLOAK_ISSUER=${url}:8443/keycloak/realms/Gamify-IT
       - KEYCLOAK_URL=http://keycloak/keycloak/realms/Gamify-IT
 
   chickenshock-backend-test:
@@ -135,7 +135,7 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_URL=postgresql://chickenshock-db-test:5432/postgres
       - OVERWORLD_URL=http://overworld-backend-test/api/v1
-      - KEYCLOAK_ISSUER=https://goulburn.informatik.uni-stuttgart.de:8443/keycloak/realms/Gamify-IT
+      - KEYCLOAK_ISSUER=${url}:8443/keycloak/realms/Gamify-IT
       - KEYCLOAK_URL=http://keycloak/keycloak/realms/Gamify-IT
 
   finitequiz-backend-test:
@@ -151,7 +151,7 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_URL=postgresql://finitequiz-db-test:5432/postgres
       - OVERWORLD_URL=http://overworld-backend-test/api/v1
-      - KEYCLOAK_ISSUER=https://goulburn.informatik.uni-stuttgart.de:8443/keycloak/realms/Gamify-IT
+      - KEYCLOAK_ISSUER=${url}:8443/keycloak/realms/Gamify-IT
       - KEYCLOAK_URL=http://keycloak/keycloak/realms/Gamify-IT
 
 
