@@ -63,6 +63,18 @@ services:
         - POSTGRES_USER=postgres
         - POSTGRES_PASSWORD=postgres
 
+  bugfinder-db-test:
+      container_name: bugfinder-db-test
+      image: postgres:14-alpine
+      restart: always
+      expose:
+        - "5432"
+      volumes:
+      - ./data/bugfinder-db-test:/var/lib/postgresql/data
+      environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
+
 
   #backends
   keycloak-test:
@@ -150,6 +162,22 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_URL=postgresql://finitequiz-db-test:5432/postgres
+      - OVERWORLD_URL=http://overworld-backend-test/api/v1
+      - KEYCLOAK_ISSUER=${url}:8443/keycloak/realms/Gamify-IT
+      - KEYCLOAK_URL=http://keycloak/keycloak/realms/Gamify-IT
+
+  bugfinder-backend-test:
+    container_name:   bugfinder-backend-test
+    image: ghcr.io/gamify-it/bugfinder-backend:main
+    restart: always
+    expose:
+      - "80"
+    depends_on:
+      - bugfinder-db-test
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_URL=postgresql://bugfinder-db-test:5432/postgres
       - OVERWORLD_URL=http://overworld-backend-test/api/v1
       - KEYCLOAK_ISSUER=${url}:8443/keycloak/realms/Gamify-IT
       - KEYCLOAK_URL=http://keycloak/keycloak/realms/Gamify-IT
