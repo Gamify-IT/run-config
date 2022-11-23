@@ -16,64 +16,64 @@ services:
       - POSTGRES_PASSWORD=postgres
 
   overworld-db-test:
-      container_name: overworld-db-test
-      image: postgres:14-alpine
-      restart: always
-      expose:
-        - "5432"
-      volumes:
-      - ./data/overworld-db-test:/var/lib/postgresql/data
-      environment:
-        - POSTGRES_USER=postgres
-        - POSTGRES_PASSWORD=postgres
+    container_name: overworld-db-test
+    image: postgres:14-alpine
+    restart: always
+    expose:
+      - "5432"
+    volumes:
+    - ./data/overworld-db-test:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
 
   chickenshock-db-test:
-      container_name: chickenshock-db-test
-      image: postgres:14-alpine
-      restart: always
-      expose:
-        - "5432"
-      volumes:
-      - ./data/chickenshock-db-test:/var/lib/postgresql/data
-      environment:
-        - POSTGRES_USER=postgres
-        - POSTGRES_PASSWORD=postgres
+    container_name: chickenshock-db-test
+    image: postgres:14-alpine
+    restart: always
+    expose:
+      - "5432"
+    volumes:
+    - ./data/chickenshock-db-test:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
 
   crosswordpuzzle-db-test:
-      container_name: crossword-db-test
-      image: postgres:14-alpine
-      restart: always
-      expose:
-        - "5432"
-      volumes:
-      - ./data/crossword-db-test:/var/lib/postgresql/data
-      environment:
-        - POSTGRES_USER=postgres
-        - POSTGRES_PASSWORD=postgres
+    container_name: crossword-db-test
+    image: postgres:14-alpine
+    restart: always
+    expose:
+      - "5432"
+    volumes:
+    - ./data/crossword-db-test:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
 
   finitequiz-db-test:
-      container_name: finitequiz-db-test
-      image: postgres:14-alpine
-      restart: always
-      expose:
-        - "5432"
-      volumes:
-      - ./data/finitequiz-db-test:/var/lib/postgresql/data
-      environment:
-        - POSTGRES_USER=postgres
-        - POSTGRES_PASSWORD=postgres
+    container_name: finitequiz-db-test
+    image: postgres:14-alpine
+    restart: always
+    expose:
+      - "5432"
+    volumes:
+    - ./data/finitequiz-db-test:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
 
   bugfinder-db-test:
-      container_name: bugfinder-db-test
-      image: postgres:14-alpine
-      restart: always
-      expose:
-        - "5432"
-      volumes:
-      - ./data/bugfinder-db-test:/var/lib/postgresql/data
-      environment:
-        - POSTGRES_USER=postgres
-        - POSTGRES_PASSWORD=postgres
+    container_name: bugfinder-db-test
+    image: postgres:14-alpine
+    restart: always
+    expose:
+      - "5432"
+    volumes:
+    - ./data/bugfinder-db-test:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
 
 
   #backends
