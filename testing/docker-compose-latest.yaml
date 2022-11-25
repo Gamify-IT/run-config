@@ -3,14 +3,27 @@ version: "3.7"
 services:
 
   #databases
+  setup:
+    container_name: setup
+    image: ghcr.io/gamify-it/test-data:latest
+    pull_policy: always
+    restart: on-failure
+    environment:
+      POSTGRES_SETUP: >
+        bugfinder/default.sql
+        chickenshock/default.sql
+        finitequiz/default.sql
+        keycloak/default.sql
+        overworld/default.sql
+        crosswordpuzzle/default.sql            
+
   keycloak-db:
     container_name: keycloak-db
     image: postgres:14-alpine
+    pull_policy: always
     restart: always
     expose:
       - "5432"
-    volumes:
-      - ./data/keycloak-db:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -18,11 +31,10 @@ services:
   overworld-db:
     container_name: overworld-db
     image: postgres:14-alpine
+    pull_policy: always
     restart: always
     expose:
       - "5432"
-    volumes:
-      - ./data/overworld-db:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -30,23 +42,21 @@ services:
   chickenshock-db:
     container_name: chickenshock-db
     image: postgres:14-alpine
+    pull_policy: always
     restart: always
     expose:
       - "5432"
-    volumes:
-      - ./data/chickenshock-db:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
 
   crosswordpuzzle-db:
-    container_name: crossword-db
+    container_name: crosswordpuzzle-db
     image: postgres:14-alpine
+    pull_policy: always
     restart: always
     expose:
       - "5432"
-    volumes:
-      - ./data/crossword-db:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -54,11 +64,10 @@ services:
   finitequiz-db:
     container_name: finitequiz-db
     image: postgres:14-alpine
+    pull_policy: always
     restart: always
     expose:
       - "5432"
-    volumes:
-    - ./data/finitequiz-db:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -66,11 +75,10 @@ services:
   bugfinder-db:
     container_name: bugfinder-db
     image: postgres:14-alpine
+    pull_policy: always
     restart: always
     expose:
       - "5432"
-    volumes:
-    - ./data/bugfinder-db:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -81,9 +89,10 @@ services:
     expose:
       - "80"
     image: quay.io/keycloak/keycloak:19.0
+    pull_policy: always
     restart: always
     command:
-      - "start"
+      - "start-dev"
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
@@ -101,6 +110,7 @@ services:
   overworld-backend:
     container_name:   overworld-backend
     image: ghcr.io/gamify-it/overworld-backend:latest
+    pull_policy: always
     restart: always
     expose:
       - "80"
@@ -120,6 +130,7 @@ services:
   crosswordpuzzle-backend:
     container_name:   crosswordpuzzle-backend
     image: ghcr.io/gamify-it/crosswordpuzzle-backend:latest
+    pull_policy: always
     restart: always
     expose:
       - "80"
@@ -136,6 +147,7 @@ services:
   chickenshock-backend:
     container_name:   chickenshock-backend
     image: ghcr.io/gamify-it/chickenshock-backend:latest
+    pull_policy: always
     restart: always
     expose:
       - "80"
@@ -152,6 +164,7 @@ services:
   finitequiz-backend:
     container_name:   finitequiz-backend
     image: ghcr.io/gamify-it/finitequiz-backend:latest
+    pull_policy: always
     restart: always
     expose:
       - "80"
@@ -168,6 +181,7 @@ services:
   bugfinder-backend:
     container_name:   bugfinder-backend
     image: ghcr.io/gamify-it/bugfinder-backend:latest
+    pull_policy: always
     restart: always
     expose:
       - "80"
@@ -181,10 +195,12 @@ services:
       - KEYCLOAK_ISSUER=${url}/keycloak/realms/Gamify-IT
       - KEYCLOAK_URL=http://keycloak/keycloak/realms/Gamify-IT
 
+
   #frontends
   landing-page:
     container_name: landing-page
     image: ghcr.io/gamify-it/landing-page:latest
+    pull_policy: always
     restart: always
     expose:
       - "80"
@@ -192,6 +208,7 @@ services:
   overworld:
     container_name: overworld
     image: ghcr.io/gamify-it/overworld:latest
+    pull_policy: always
     restart: always
     expose:
       - "80"
@@ -199,6 +216,7 @@ services:
   git-card-game:
     container_name: git-card-game
     image: ghcr.io/gamify-it/git-card-game:latest
+    pull_policy: always
     restart: always
     expose:
       - "80"
@@ -206,6 +224,7 @@ services:
   chickenshock:
     container_name: chickenshock
     image: ghcr.io/gamify-it/chickenshock:latest
+    pull_policy: always
     restart: always
     expose:
       - "80"
@@ -213,6 +232,7 @@ services:
   crosswordpuzzle:
     container_name: crosswordpuzzle
     image: ghcr.io/gamify-it/crosswordpuzzle:latest
+    pull_policy: always
     restart: always
     expose:
       - "80"
@@ -220,6 +240,7 @@ services:
   regex-game:
     container_name: regex-game
     image: ghcr.io/gamify-it/regex-game:latest
+    pull_policy: always
     restart: always
     expose:
       - "80"
@@ -227,6 +248,7 @@ services:
   bugfinder:
     container_name: bugfinder
     image: ghcr.io/gamify-it/bugfinder:latest
+    pull_policy: always
     restart: always
     expose:
       - "80"
@@ -234,6 +256,7 @@ services:
   lecturer-interface:
     container_name: lecturer-interface
     image: ghcr.io/gamify-it/lecturer-interface:latest
+    pull_policy: always
     restart: always
     expose:
       - "80"
@@ -241,6 +264,7 @@ services:
   finitequiz:
     container_name: finitequiz
     image: ghcr.io/gamify-it/finitequiz:latest
+    pull_policy: always
     restart: always
     expose:
       - "80"
@@ -248,6 +272,7 @@ services:
   third-party-license-notice:
     container_name: third-party-license-notice
     image: ghcr.io/gamify-it/third-party-license-notice:latest
+    pull_policy: always
     restart: always
     expose:
       - "80"
@@ -256,19 +281,10 @@ services:
   reverse-proxy:
     container_name: reverse-proxy
     image: nginx
+    pull_policy: always
     restart: always
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
-      - ./ssl-certs:/etc/ssl-certs:ro
+      - ./ssl-certs:/etc/nginx/ssl-certs:ro
     ports:
       - "${http_port}:${http_port}"
-      - "${https_port}:${https_port}"
-
-  #updater
-  watchtower:
-    container_name: watchtower
-    image: containrrr/watchtower
-    restart: always
-    command: --interval 300
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
