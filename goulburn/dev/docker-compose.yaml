@@ -76,7 +76,7 @@ services:
       - POSTGRES_PASSWORD=postgres
 
   towercrush-db:
-    container_name: bugfinder-db-dev
+    container_name: towercrush-db-dev
     image: postgres:14-alpine
     restart: always
     expose:
