@@ -4,7 +4,7 @@ services:
 
   #databases
   keycloak-db:
-    container_name: keycloak-db
+    container_name: keycloak-db-dev
     image: postgres:14-alpine
     restart: always
     expose:
@@ -16,7 +16,7 @@ services:
       - POSTGRES_PASSWORD=postgres
 
   overworld-db:
-    container_name: overworld-db
+    container_name: overworld-db-dev
     image: postgres:14-alpine
     restart: always
     expose:
@@ -28,7 +28,7 @@ services:
       - POSTGRES_PASSWORD=postgres
 
   chickenshock-db:
-    container_name: chickenshock-db
+    container_name: chickenshock-db-dev
     image: postgres:14-alpine
     restart: always
     expose:
@@ -40,7 +40,7 @@ services:
       - POSTGRES_PASSWORD=postgres
 
   crosswordpuzzle-db:
-    container_name: crossword-db
+    container_name: crossword-db-dev
     image: postgres:14-alpine
     restart: always
     expose:
@@ -52,7 +52,7 @@ services:
       - POSTGRES_PASSWORD=postgres
 
   finitequiz-db:
-    container_name: finitequiz-db
+    container_name: finitequiz-db-dev
     image: postgres:14-alpine
     restart: always
     expose:
@@ -64,7 +64,7 @@ services:
       - POSTGRES_PASSWORD=postgres
 
   bugfinder-db:
-    container_name: bugfinder-db
+    container_name: bugfinder-db-dev
     image: postgres:14-alpine
     restart: always
     expose:
@@ -75,9 +75,21 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
 
+  towercrush-db:
+    container_name: bugfinder-db-dev
+    image: postgres:14-alpine
+    restart: always
+    expose:
+      - "5432"
+    volumes:
+    - ./data/towercrush-db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
   #backends
   keycloak:
-    container_name: keycloak
+    container_name: keycloak-dev
     expose:
       - "80"
     image: quay.io/keycloak/keycloak:19.0
@@ -89,7 +101,7 @@ services:
       KEYCLOAK_ADMIN_PASSWORD: admin
 
       KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://keycloak-db:5432/postgres
+      KC_DB_URL: jdbc:postgresql://keycloak-db-dev:5432/postgres
       KC_DB_USERNAME: postgres
       KC_DB_PASSWORD: postgres
 
@@ -99,8 +111,8 @@ services:
       KC_HTTP_PORT: 80
 
   overworld-backend:
-    container_name:   overworld-backend
-    image: ghcr.io/gamify-it/overworld-backend:latest
+    container_name:   overworld-backend-dev
+    image: ghcr.io/gamify-it/overworld-backend:main
     restart: always
     expose:
       - "80"
@@ -109,17 +121,17 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_URL=postgresql://overworld-db:5432/postgres
-      - CHICKENSHOCK_URL=http://chickenshock-backend/api/v1
-      - CROSSWORDPUZZLE_URL=http://crosswordpuzzle-backend/api/v1
-      - FINITEQUIZ_URL=http://finitequiz-backend/api/v1
-      - BUGFINDER_URL=http://bugfinder-backend/api/v1
+      - POSTGRES_URL=postgresql://overworld-db-dev:5432/postgres
+      - CHICKENSHOCK_URL=http://chickenshock-backend-dev/api/v1
+      - CROSSWORDPUZZLE_URL=http://crosswordpuzzle-backend-dev/api/v1
+      - FINITEQUIZ_URL=http://finitequiz-backend-dev/api/v1
+      - BUGFINDER_URL=http://bugfinder-backend-dev/api/v1
       - KEYCLOAK_ISSUER=${url}/keycloak/realms/Gamify-IT
-      - KEYCLOAK_URL=http://keycloak/keycloak/realms/Gamify-IT
+      - KEYCLOAK_URL=http://keycloak-dev/keycloak/realms/Gamify-IT
 
   crosswordpuzzle-backend:
-    container_name:   crosswordpuzzle-backend
-    image: ghcr.io/gamify-it/crosswordpuzzle-backend:latest
+    container_name:   crosswordpuzzle-backend-dev
+    image: ghcr.io/gamify-it/crosswordpuzzle-backend:main
     restart: always
     expose:
       - "80"
@@ -128,14 +140,14 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_URL=postgresql://crosswordpuzzle-db:5432/postgres
-      - OVERWORLD_URL=http://overworld-backend/api/v1
+      - POSTGRES_URL=postgresql://crosswordpuzzle-db-dev:5432/postgres
+      - OVERWORLD_URL=http://overworld-backend-dev/api/v1
       - KEYCLOAK_ISSUER=${url}/keycloak/realms/Gamify-IT
-      - KEYCLOAK_URL=http://keycloak/keycloak/realms/Gamify-IT
+      - KEYCLOAK_URL=http://keycloak-dev/keycloak/realms/Gamify-IT
 
   chickenshock-backend:
-    container_name:   chickenshock-backend
-    image: ghcr.io/gamify-it/chickenshock-backend:latest
+    container_name:   chickenshock-backend-dev
+    image: ghcr.io/gamify-it/chickenshock-backend:main
     restart: always
     expose:
       - "80"
@@ -144,14 +156,14 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_URL=postgresql://chickenshock-db:5432/postgres
-      - OVERWORLD_URL=http://overworld-backend/api/v1
+      - POSTGRES_URL=postgresql://chickenshock-db-dev:5432/postgres
+      - OVERWORLD_URL=http://overworld-backend-dev/api/v1
       - KEYCLOAK_ISSUER=${url}/keycloak/realms/Gamify-IT
-      - KEYCLOAK_URL=http://keycloak/keycloak/realms/Gamify-IT
+      - KEYCLOAK_URL=http://keycloak-dev/keycloak/realms/Gamify-IT
 
   finitequiz-backend:
-    container_name:   finitequiz-backend
-    image: ghcr.io/gamify-it/finitequiz-backend:latest
+    container_name:   finitequiz-backend-dev
+    image: ghcr.io/gamify-it/finitequiz-backend:main
     restart: always
     expose:
       - "80"
@@ -160,14 +172,14 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_URL=postgresql://finitequiz-db:5432/postgres
+      - POSTGRES_URL=postgresql://finitequiz-db-dev:5432/postgres
       - OVERWORLD_URL=http://overworld-backend/api/v1
       - KEYCLOAK_ISSUER=${url}/keycloak/realms/Gamify-IT
-      - KEYCLOAK_URL=http://keycloak/keycloak/realms/Gamify-IT
+      - KEYCLOAK_URL=http://keycloak-dev/keycloak/realms/Gamify-IT
 
   bugfinder-backend:
-    container_name:   bugfinder-backend
-    image: ghcr.io/gamify-it/bugfinder-backend:latest
+    container_name:   bugfinder-backend-dev
+    image: ghcr.io/gamify-it/bugfinder-backend:main
     restart: always
     expose:
       - "80"
@@ -176,86 +188,109 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_URL=postgresql://bugfinder-db:5432/postgres
-      - OVERWORLD_URL=http://overworld-backend/api/v1
+      - POSTGRES_URL=postgresql://bugfinder-db-dev:5432/postgres
+      - OVERWORLD_URL=http://overworld-backend-dev/api/v1
       - KEYCLOAK_ISSUER=${url}/keycloak/realms/Gamify-IT
-      - KEYCLOAK_URL=http://keycloak/keycloak/realms/Gamify-IT
+      - KEYCLOAK_URL=http://keycloak-dev/keycloak/realms/Gamify-IT
+
+  towercrush-backend:
+    container_name:   towercrush-backend-dev
+    image: ghcr.io/gamify-it/towercrush-backend:development
+    restart: always
+    expose:
+      - "80"
+    depends_on:
+      - bugfinder-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_URL=postgresql://towercrush-db-dev:5432/postgres
+      - OVERWORLD_URL=http://overworld-backend-dev/api/v1
+      - KEYCLOAK_ISSUER=${url}/keycloak/realms/Gamify-IT
+      - KEYCLOAK_URL=http://keycloak-dev/keycloak/realms/Gamify-IT
 
 
   #frontends
   landing-page:
-    container_name: landing-page
-    image: ghcr.io/gamify-it/landing-page:latest
+    container_name: landing-page-dev
+    image: ghcr.io/gamify-it/landing-page:main
     restart: always
     expose:
       - "80"
 
   overworld:
-    container_name: overworld
-    image: ghcr.io/gamify-it/overworld:latest
+    container_name: overworld-dev
+    image: ghcr.io/gamify-it/overworld:main
     restart: always
     expose:
       - "80"
 
   git-card-game:
-    container_name: git-card-game
-    image: ghcr.io/gamify-it/git-card-game:latest
+    container_name: git-card-game-dev
+    image: ghcr.io/gamify-it/git-card-game:main
     restart: always
     expose:
       - "80"
 
   chickenshock:
-    container_name: chickenshock
-    image: ghcr.io/gamify-it/chickenshock:latest
+    container_name: chickenshock-dev
+    image: ghcr.io/gamify-it/chickenshock:main
     restart: always
     expose:
       - "80"
 
   crosswordpuzzle:
-    container_name: crosswordpuzzle
-    image: ghcr.io/gamify-it/crosswordpuzzle:latest
+    container_name: crosswordpuzzle-dev
+    image: ghcr.io/gamify-it/crosswordpuzzle:main
     restart: always
     expose:
       - "80"
 
   regex-game:
-    container_name: regex-game
-    image: ghcr.io/gamify-it/regex-game:latest
+    container_name: regex-game-dev
+    image: ghcr.io/gamify-it/regex-game:main
     restart: always
     expose:
       - "80"
 
   bugfinder:
-    container_name: bugfinder
-    image: ghcr.io/gamify-it/bugfinder:latest
+    container_name: bugfinder-dev
+    image: ghcr.io/gamify-it/bugfinder:main
     restart: always
     expose:
       - "80"
 
   lecturer-interface:
-    container_name: lecturer-interface
-    image: ghcr.io/gamify-it/lecturer-interface:latest
+    container_name: lecturer-interface-dev
+    image: ghcr.io/gamify-it/lecturer-interface:main
     restart: always
     expose:
       - "80"
 
   finitequiz:
-    container_name: finitequiz
-    image: ghcr.io/gamify-it/finitequiz:latest
+    container_name: finitequiz-dev
+    image: ghcr.io/gamify-it/finitequiz:main
+    restart: always
+    expose:
+      - "80"
+
+  towercrush:
+    container_name: towercrush-dev
+    image: ghcr.io/gamify-it/towercrush:development
     restart: always
     expose:
       - "80"
 
   third-party-license-notice:
-    container_name: third-party-license-notice
-    image: ghcr.io/gamify-it/third-party-license-notice:latest
+    container_name: third-party-license-notice-dev
+    image: ghcr.io/gamify-it/third-party-license-notice:main
     restart: always
     expose:
       - "80"
 
   # reverse-proxy
   reverse-proxy:
-    container_name: reverse-proxy
+    container_name: reverse-proxy-dev
     image: nginx
     restart: always
     volumes:
@@ -267,7 +302,7 @@ services:
 
   #updater
   watchtower:
-    container_name: watchtower
+    container_name: watchtower-dev
     image: containrrr/watchtower
     restart: always
     command: --interval 300
