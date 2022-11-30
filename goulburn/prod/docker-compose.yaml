@@ -259,7 +259,7 @@ services:
     restart: always
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
-      - ./ssl-certs:/etc/ssl-certs:ro
+      - ./ssl-certs:/etc/nginx/ssl-certs:ro
     ports:
       - "${http_port}:${http_port}"
       - "${https_port}:${https_port}"

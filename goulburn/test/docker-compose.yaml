@@ -3,81 +3,80 @@ version: "3.7"
 services:
 
   #databases
-  keycloak-db-test:
+  keycloak-db:
     container_name: keycloak-db-test
     image: postgres:14-alpine
     restart: always
     expose:
       - "5432"
     volumes:
-      - ./data/keycloak-db-test:/var/lib/postgresql/data
+      - ./data/keycloak-db:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
 
-  overworld-db-test:
+  overworld-db:
     container_name: overworld-db-test
     image: postgres:14-alpine
     restart: always
     expose:
       - "5432"
     volumes:
-    - ./data/overworld-db-test:/var/lib/postgresql/data
+      - ./data/overworld-db:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
 
-  chickenshock-db-test:
+  chickenshock-db:
     container_name: chickenshock-db-test
     image: postgres:14-alpine
     restart: always
     expose:
       - "5432"
     volumes:
-    - ./data/chickenshock-db-test:/var/lib/postgresql/data
+      - ./data/chickenshock-db:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
 
-  crosswordpuzzle-db-test:
+  crosswordpuzzle-db:
     container_name: crossword-db-test
     image: postgres:14-alpine
     restart: always
     expose:
       - "5432"
     volumes:
-    - ./data/crossword-db-test:/var/lib/postgresql/data
+      - ./data/crossword-db:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
 
-  finitequiz-db-test:
+  finitequiz-db:
     container_name: finitequiz-db-test
     image: postgres:14-alpine
     restart: always
     expose:
       - "5432"
     volumes:
-    - ./data/finitequiz-db-test:/var/lib/postgresql/data
+    - ./data/finitequiz-db:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
 
-  bugfinder-db-test:
+  bugfinder-db:
     container_name: bugfinder-db-test
     image: postgres:14-alpine
     restart: always
     expose:
       - "5432"
     volumes:
-    - ./data/bugfinder-db-test:/var/lib/postgresql/data
+    - ./data/bugfinder-db:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
 
-
   #backends
-  keycloak-test:
+  keycloak:
     container_name: keycloak-test
     expose:
       - "80"
@@ -99,14 +98,14 @@ services:
       KC_HTTP_RELATIVE_PATH: /keycloak
       KC_HTTP_PORT: 80
 
-  overworld-backend-test:
+  overworld-backend:
     container_name:   overworld-backend-test
     image: ghcr.io/gamify-it/overworld-backend:main
     restart: always
     expose:
       - "80"
     depends_on:
-      - overworld-db-test
+      - overworld-db
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -115,139 +114,139 @@ services:
       - CROSSWORDPUZZLE_URL=http://crosswordpuzzle-backend-test/api/v1
       - FINITEQUIZ_URL=http://finitequiz-backend-test/api/v1
       - BUGFINDER_URL=http://bugfinder-backend-test/api/v1
-      - KEYCLOAK_ISSUER=${url}:8443/keycloak/realms/Gamify-IT
-      - KEYCLOAK_URL=http://keycloak/keycloak/realms/Gamify-IT
-    
-  crosswordpuzzle-backend-test:
+      - KEYCLOAK_ISSUER=${url}/keycloak/realms/Gamify-IT
+      - KEYCLOAK_URL=http://keycloak-test/keycloak/realms/Gamify-IT
+
+  crosswordpuzzle-backend:
     container_name:   crosswordpuzzle-backend-test
     image: ghcr.io/gamify-it/crosswordpuzzle-backend:main
     restart: always
     expose:
       - "80"
     depends_on:
-      - crosswordpuzzle-db-test
+      - crosswordpuzzle-db
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_URL=postgresql://crosswordpuzzle-db-test:5432/postgres
       - OVERWORLD_URL=http://overworld-backend-test/api/v1
-      - KEYCLOAK_ISSUER=${url}:8443/keycloak/realms/Gamify-IT
-      - KEYCLOAK_URL=http://keycloak/keycloak/realms/Gamify-IT
+      - KEYCLOAK_ISSUER=${url}/keycloak/realms/Gamify-IT
+      - KEYCLOAK_URL=http://keycloak-test/keycloak/realms/Gamify-IT
 
-  chickenshock-backend-test:
+  chickenshock-backend:
     container_name:   chickenshock-backend-test
     image: ghcr.io/gamify-it/chickenshock-backend:main
     restart: always
     expose:
       - "80"
     depends_on:
-      - chickenshock-db-test
+      - chickenshock-db
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_URL=postgresql://chickenshock-db-test:5432/postgres
       - OVERWORLD_URL=http://overworld-backend-test/api/v1
-      - KEYCLOAK_ISSUER=${url}:8443/keycloak/realms/Gamify-IT
-      - KEYCLOAK_URL=http://keycloak/keycloak/realms/Gamify-IT
+      - KEYCLOAK_ISSUER=${url}/keycloak/realms/Gamify-IT
+      - KEYCLOAK_URL=http://keycloak-test/keycloak/realms/Gamify-IT
 
-  finitequiz-backend-test:
+  finitequiz-backend:
     container_name:   finitequiz-backend-test
     image: ghcr.io/gamify-it/finitequiz-backend:main
     restart: always
     expose:
       - "80"
     depends_on:
-      - finitequiz-db-test
+      - finitequiz-db
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_URL=postgresql://finitequiz-db-test:5432/postgres
       - OVERWORLD_URL=http://overworld-backend-test/api/v1
-      - KEYCLOAK_ISSUER=${url}:8443/keycloak/realms/Gamify-IT
-      - KEYCLOAK_URL=http://keycloak/keycloak/realms/Gamify-IT
+      - KEYCLOAK_ISSUER=${url}/keycloak/realms/Gamify-IT
+      - KEYCLOAK_URL=http://keycloak-test/keycloak/realms/Gamify-IT
 
-  bugfinder-backend-test:
+  bugfinder-backend:
     container_name:   bugfinder-backend-test
     image: ghcr.io/gamify-it/bugfinder-backend:main
     restart: always
     expose:
       - "80"
     depends_on:
-      - bugfinder-db-test
+      - bugfinder-db
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_URL=postgresql://bugfinder-db-test:5432/postgres
       - OVERWORLD_URL=http://overworld-backend-test/api/v1
-      - KEYCLOAK_ISSUER=${url}:8443/keycloak/realms/Gamify-IT
-      - KEYCLOAK_URL=http://keycloak/keycloak/realms/Gamify-IT
+      - KEYCLOAK_ISSUER=${url}/keycloak/realms/Gamify-IT
+      - KEYCLOAK_URL=http://keycloak-test/keycloak/realms/Gamify-IT
 
 
   #frontends
-  landing-page-test:
+  landing-page:
     container_name: landing-page-test
     image: ghcr.io/gamify-it/landing-page:main
     restart: always
     expose:
       - "80"
 
-  overworld-test:
+  overworld:
     container_name: overworld-test
     image: ghcr.io/gamify-it/overworld:main
     restart: always
     expose:
       - "80"
 
-  git-card-game-test:
+  git-card-game:
     container_name: git-card-game-test
     image: ghcr.io/gamify-it/git-card-game:main
     restart: always
     expose:
       - "80"
 
-  chickenshock-test:
+  chickenshock:
     container_name: chickenshock-test
     image: ghcr.io/gamify-it/chickenshock:main
     restart: always
     expose:
       - "80"
 
-  crosswordpuzzle-test:
+  crosswordpuzzle:
     container_name: crosswordpuzzle-test
     image: ghcr.io/gamify-it/crosswordpuzzle:main
     restart: always
     expose:
       - "80"
 
-  regex-game-test:
+  regex-game:
     container_name: regex-game-test
     image: ghcr.io/gamify-it/regex-game:main
     restart: always
     expose:
       - "80"
 
-  bugfinder-test:
+  bugfinder:
     container_name: bugfinder-test
     image: ghcr.io/gamify-it/bugfinder:main
     restart: always
     expose:
       - "80"
 
-  lecturer-interface-test:
+  lecturer-interface:
     container_name: lecturer-interface-test
     image: ghcr.io/gamify-it/lecturer-interface:main
     restart: always
     expose:
       - "80"
 
-  finitequiz-test:
+  finitequiz:
     container_name: finitequiz-test
     image: ghcr.io/gamify-it/finitequiz:main
     restart: always
     expose:
       - "80"
 
-  third-party-license-notice-test:
+  third-party-license-notice:
     container_name: third-party-license-notice-test
     image: ghcr.io/gamify-it/third-party-license-notice:main
     restart: always
@@ -255,17 +254,22 @@ services:
       - "80"
 
   # reverse-proxy
-  reverse-proxy-test:
+  reverse-proxy:
     container_name: reverse-proxy-test
     image: nginx
     restart: always
     volumes:
-      - ./nginx/conf.d-test:/etc/nginx/conf.d:ro
-      - ./ssl-certs:/etc/ssl-certs:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./ssl-certs:/etc/nginx/ssl-certs:ro
     ports:
-      - "8000:8000"
-      - "8443:8443"
+      - "${http_port}:${http_port}"
+      - "${https_port}:${https_port}"
 
-
-  #updater from prod build is used
-  
+  #updater
+  watchtower:
+    container_name: watchtower-test
+    image: containrrr/watchtower
+    restart: always
+    command: --interval 300
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

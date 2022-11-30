@@ -4,7 +4,12 @@ This folder contains the configuration running on our project internal Server ca
 
 ## deploy containers
 
-To deploy the containers you need to download the certificates from the [secrets repo](https://github.com/Gamify-IT/secrets/tree/main/ssl-certs) and save them in `./ssl-certs/`.
+To deploy the containers you need to download the certificates from the [secrets repo](https://github.com/Gamify-IT/secrets/tree/main/ssl-certs) and save them in `prod/ssl-certs/`, `test/ssl-certs/` or `dev/ssl-certs/`, depending on the deplozment zou want to use.
+
+Then you need to change zour working directory to the deployment you want to start. For example:
+```sh
+cd prod
+```
 
 Run the docker containers with the following command:
 ```sh
@@ -26,8 +31,6 @@ To stop and remove the containers you can use the following command:
 docker compose down
 ```
 
-If you want to run the test-containers use `docker compose -f docker-compose-test.yaml` instead of `docker compose`.
-
 ## setup deployment with automatic updates
 
 The containers are updated using watchtower configured in the docker-compose file. To update the docker-compose we use a systemctl timer.
@@ -42,7 +45,7 @@ Then clone the repository into the home directory and switch into it with the fo
 ```bash
 cd ~/ && git clone https://github.com/Gamify-IT/run-config.git && cd run-config
 ```
-To deploy the container you need to download the certificates from the [secrets repo](https://github.com/Gamify-IT/secrets/tree/main/ssl-certs) and save them in `./ssl-certs/`. \
+To deploy the container you need to download the certificates from the [secrets repo](https://github.com/Gamify-IT/secrets/tree/main/ssl-certs) and save them in `prod/ssl-certs/`, `test/ssl-certs/` and `dev/ssl-certs/`. \
 The remaining commands mostly have to be run by a user with sudo priviledges or a root user. \
 To automatically update the docker-compose file we use a systemctl service with correspondig timer:
 ```bash
