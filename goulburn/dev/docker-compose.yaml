@@ -220,7 +220,7 @@ services:
 
   overworld:
     container_name: overworld-dev
-    image: ghcr.io/gamify-it/overworld:main
+    image: ghcr.io/gamify-it/overworld:development
     restart: always
     expose:
       - "80"
