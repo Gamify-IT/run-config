@@ -112,7 +112,7 @@ services:
 
   overworld-backend:
     container_name:   overworld-backend-dev
-    image: ghcr.io/gamify-it/overworld-backend:main
+    image: ghcr.io/gamify-it/overworld-backend:development
     restart: always
     expose:
       - "80"
@@ -131,7 +131,7 @@ services:
 
   crosswordpuzzle-backend:
     container_name:   crosswordpuzzle-backend-dev
-    image: ghcr.io/gamify-it/crosswordpuzzle-backend:main
+    image: ghcr.io/gamify-it/crosswordpuzzle-backend:development
     restart: always
     expose:
       - "80"
@@ -147,7 +147,7 @@ services:
 
   chickenshock-backend:
     container_name:   chickenshock-backend-dev
-    image: ghcr.io/gamify-it/chickenshock-backend:main
+    image: ghcr.io/gamify-it/chickenshock-backend:development
     restart: always
     expose:
       - "80"
@@ -163,7 +163,7 @@ services:
 
   finitequiz-backend:
     container_name:   finitequiz-backend-dev
-    image: ghcr.io/gamify-it/finitequiz-backend:main
+    image: ghcr.io/gamify-it/finitequiz-backend:development
     restart: always
     expose:
       - "80"
@@ -179,7 +179,7 @@ services:
 
   bugfinder-backend:
     container_name:   bugfinder-backend-dev
-    image: ghcr.io/gamify-it/bugfinder-backend:main
+    image: ghcr.io/gamify-it/bugfinder-backend:development
     restart: always
     expose:
       - "80"
@@ -200,7 +200,7 @@ services:
     expose:
       - "80"
     depends_on:
-      - bugfinder-db
+      - towercrush-db
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -213,7 +213,7 @@ services:
   #frontends
   landing-page:
     container_name: landing-page-dev
-    image: ghcr.io/gamify-it/landing-page:main
+    image: ghcr.io/gamify-it/landing-page:development
     restart: always
     expose:
       - "80"
@@ -234,42 +234,42 @@ services:
 
   chickenshock:
     container_name: chickenshock-dev
-    image: ghcr.io/gamify-it/chickenshock:main
+    image: ghcr.io/gamify-it/chickenshock:development
     restart: always
     expose:
       - "80"
 
   crosswordpuzzle:
     container_name: crosswordpuzzle-dev
-    image: ghcr.io/gamify-it/crosswordpuzzle:main
+    image: ghcr.io/gamify-it/crosswordpuzzle:development
     restart: always
     expose:
       - "80"
 
   regex-game:
     container_name: regex-game-dev
-    image: ghcr.io/gamify-it/regex-game:main
+    image: ghcr.io/gamify-it/regex-game:development
     restart: always
     expose:
       - "80"
 
   bugfinder:
     container_name: bugfinder-dev
-    image: ghcr.io/gamify-it/bugfinder:main
+    image: ghcr.io/gamify-it/bugfinder:development
     restart: always
     expose:
       - "80"
 
   lecturer-interface:
     container_name: lecturer-interface-dev
-    image: ghcr.io/gamify-it/lecturer-interface:main
+    image: ghcr.io/gamify-it/lecturer-interface:development
     restart: always
     expose:
       - "80"
 
   finitequiz:
     container_name: finitequiz-dev
-    image: ghcr.io/gamify-it/finitequiz:main
+    image: ghcr.io/gamify-it/finitequiz:development
     restart: always
     expose:
       - "80"
