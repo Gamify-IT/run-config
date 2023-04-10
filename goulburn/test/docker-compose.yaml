@@ -87,6 +87,18 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
 
+  memory-db:
+    container_name: memory-db-test
+    image: postgres:14-alpine
+    restart: always
+    expose:
+      - "5432"
+    volumes:
+    - ./data/memory-db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
   towercrush-db:
     container_name: towercrush-db-test
     image: postgres:14-alpine
@@ -224,6 +236,22 @@ services:
       - KEYCLOAK_ISSUER=${url}/keycloak/realms/Gamify-IT
       - KEYCLOAK_URL=http://keycloak-test/keycloak/realms/Gamify-IT
 
+  memory-backend:
+    container_name:   memory-backend-test
+    image: ghcr.io/gamify-it/memory-backend:main
+    restart: always
+    expose:
+      - "80"
+    depends_on:
+      - memory-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_URL=postgresql://memory-db-test:5432/postgres
+      - OVERWORLD_URL=http://overworld-backend-test/api/v1
+      - KEYCLOAK_ISSUER=${url}/keycloak/realms/Gamify-IT
+      - KEYCLOAK_URL=http://keycloak-test/keycloak/realms/Gamify-IT
+
   towercrush-backend:
     container_name:   towercrush-backend-test
     image: ghcr.io/gamify-it/towercrush-backend:main
@@ -287,6 +315,14 @@ services:
   bugfinder:
     container_name: bugfinder-test
     image: ghcr.io/gamify-it/bugfinder:main
+    restart: always
+    expose:
+      - "80"
+
+  memory:
+    container_name: memory-test
+    image: ghcr.io/gamify-it/memory:main
+    pull_policy: always
     restart: always
     expose:
       - "80"
