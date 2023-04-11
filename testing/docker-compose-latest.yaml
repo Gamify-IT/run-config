@@ -138,7 +138,7 @@ services:
       KC_DB_USERNAME: postgres
       KC_DB_PASSWORD: postgres
 
-      KC_HOSTNAME_URL: http://${url}/keycloak
+      KC_HOSTNAME_URL: ${url}/keycloak
       KC_HOSTNAME_STRICT: false
       KC_PROXY: edge
       KC_HTTP_RELATIVE_PATH: /keycloak
