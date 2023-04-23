@@ -1,0 +1,35 @@
+version: "3.8"
+
+services: 
+
+  crosswordpuzzle-db:
+    extends:
+      file: docker-compose-template-services.yaml
+      service: template-db
+    container_name: ${DEPLOYMENT_NAME}-crosswordpuzzle-db
+    volumes:
+      - crosswordpuzzle-db:/var/lib/postgresql/data
+
+  crosswordpuzzle-backend:
+    extends:
+      file: docker-compose-template-services.yaml
+      service: template-backend
+    container_name: ${DEPLOYMENT_NAME}-crosswordpuzzle-backend
+    image: ghcr.io/gamify-it/crosswordpuzzle-backend:$VERSION
+    expose:
+      - "80"
+    depends_on:
+      - crosswordpuzzle-db
+    environment:
+      - POSTGRES_URL=postgresql://crosswordpuzzle-db:5432/postgres
+
+  crosswordpuzzle:
+    extends:
+      file: docker-compose-template-services.yaml
+      service: template-frontend
+    container_name: ${DEPLOYMENT_NAME}-crosswordpuzzle
+    image: ghcr.io/gamify-it/crosswordpuzzle:$VERSION
+
+volumes:
+  crosswordpuzzle-db:
+    name: ${DEPLOYMENT_NAME}-crosswordpuzzle-db

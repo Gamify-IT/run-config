@@ -1,0 +1,10 @@
+version: "3.8"
+
+services: 
+
+  regexgame:
+    extends:
+      file: docker-compose-template-services.yaml
+      service: template-frontend
+    container_name: ${DEPLOYMENT_NAME}-regexgame
+    image: ghcr.io/gamify-it/regex-game:$VERSION
