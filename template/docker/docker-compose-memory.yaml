@@ -1,6 +1,6 @@
 version: "3.8"
 
-services: 
+services:
 
   memory-db:
     extends:
@@ -16,12 +16,10 @@ services:
       service: template-backend
     container_name: ${DEPLOYMENT_NAME}-memory-backend
     image: ghcr.io/gamify-it/memory-backend:$VERSION
-    expose:
-      - "80"
     depends_on:
       - memory-db
     environment:
-      - POSTGRES_URL=postgresql://memory-db:5432/postgres
+      - POSTGRES_URL=postgresql://${DEPLOYMENT_NAME}-memory-db:5432/postgres
 
   memory:
     extends:

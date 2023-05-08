@@ -1,6 +1,6 @@
 version: "3.8"
 
-services: 
+services:
 
   chickenshock-db:
     extends:
@@ -16,12 +16,10 @@ services:
       service: template-backend
     container_name: ${DEPLOYMENT_NAME}-chickenshock-backend
     image: ghcr.io/gamify-it/chickenshock-backend:$VERSION
-    expose:
-      - "80"
     depends_on:
       - chickenshock-db
     environment:
-      - POSTGRES_URL=postgresql://chickenshock-db:5432/postgres
+      - POSTGRES_URL=postgresql://${DEPLOYMENT_NAME}-chickenshock-db:5432/postgres
 
   chickenshock:
     extends:

@@ -1,6 +1,6 @@
 version: "3.8"
 
-services: 
+services:
 
   towercrush-db:
     extends:
@@ -16,12 +16,10 @@ services:
       service: template-backend
     container_name: ${DEPLOYMENT_NAME}-towercrush-backend
     image: ghcr.io/gamify-it/towercrush-backend:$VERSION
-    expose:
-      - "80"
     depends_on:
       - bugfinder-db
     environment:
-      - POSTGRES_URL=postgresql://towercrush-db:5432/postgres
+      - POSTGRES_URL=postgresql://${DEPLOYMENT_NAME}-towercrush-db:5432/postgres
 
   towercrush:
     extends:

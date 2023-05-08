@@ -1,15 +1,6 @@
 version: "3.8"
 
-services: 
-
-  #databases
-  keycloak-db:
-    extends:
-      file: docker-compose-template-services.yaml
-      service: template-db
-    container_name: ${DEPLOYMENT_NAME}-keycloak-db
-    volumes:
-      - keycloak-db:/var/lib/postgresql/data
+services:
 
   overworld-db:
     extends:
@@ -19,44 +10,17 @@ services:
     volumes:
       - overworld-db:/var/lib/postgresql/data
 
-  #backends
-  keycloak:
-    extends:
-      file: docker-compose-template-services.yaml
-      service: template-service
-    container_name: ${DEPLOYMENT_NAME}-keycloak
-    image: quay.io/keycloak/keycloak:19.0
-    command:
-      - "start"
-    environment:
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: admin
-      KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://keycloak-db:5432/postgres
-      KC_DB_USERNAME: postgres
-      KC_DB_PASSWORD: postgres
-      KC_HOSTNAME_URL: ${EXTERNAL_URL}/keycloak
-      KC_HOSTNAME_STRICT: false
-      KC_PROXY: edge
-      KC_HTTP_RELATIVE_PATH: /keycloak
-      KC_HTTP_PORT: 80
-    expose:
-      - "80"
-
   overworld-backend:
     extends:
       file: docker-compose-template-services.yaml
       service: template-backend
     container_name: ${DEPLOYMENT_NAME}-overworld-backend
     image: ghcr.io/gamify-it/overworld-backend:$VERSION
-    expose:
-      - "80"
     depends_on:
       - overworld-db
     environment:
-      - POSTGRES_URL=postgresql://overworld-db:5432/postgres
+      - POSTGRES_URL=postgresql://${DEPLOYMENT_NAME}-overworld-db:5432/postgres
 
-  #frontends
   landing-page:
     extends:
       file: docker-compose-template-services.yaml
@@ -85,24 +49,24 @@ services:
     container_name: ${DEPLOYMENT_NAME}-third-party-license-notice
     image: ghcr.io/gamify-it/third-party-license-notice:$VERSION
 
-  # reverse-proxy
   reverse-proxy:
     extends:
       file: docker-compose-template-services.yaml
       service: template-service
     container_name: ${DEPLOYMENT_NAME}-reverse-proxy
-    image: nginx
+    image: ghcr.io/gamify-it/reverse-proxy:$VERSION
     volumes:
-      - /PATH-TO-NGINX-CONF/nginx.conf:/etc/nginx/conf.d/default.conf:ro
       - ${SSL_CERTIFICATE_PATH}:/etc/nginx/ssl-certs/ssl-cert.pem:ro
       - ${SSL_CERTIFICATE_KEY_PATH}:/etc/nginx/ssl-certs/ssl-certificate-key.pem:ro
+    environment:
+      - DEPLOYMENT_NAME=$DEPLOYMENT_NAME
+      - SSL_ENABLED=$SSL_ENABLED
+      - SERVICES=$SERVICES
     ports:
-      - "${HTTP_PORT}:${HTTP_PORT}"
-      - "${HTTPS_PORT}:${HTTPS_PORT}"
+      - "${HTTP_PORT}:80"
+      - "${HTTPS_PORT}:443"
 
 
 volumes:
-  keycloak-db:
-    name: ${DEPLOYMENT_NAME}-keycloak-db
   overworld-db:
     name: ${DEPLOYMENT_NAME}-overworld-db

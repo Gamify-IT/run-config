@@ -1,0 +1,21 @@
+externalUrl: ###EXTERNAL_URL###
+
+fileserverKeycloakClientSecret: ###FILESERVER_KEYCLOAK_CLIENT_SECRET###
+
+ingress:
+  httpPort: ###HTTP_PORT###
+  httpsPort: ###HTTPS_PORT###
+  sslEnabled: ###SSL_ENABLED###
+  tlsSecret: ###DEPLOYMENT_NAME###-tls-secret
+
+gamifyItVersion: ###VERSION###
+
+services: ###SERVICES###
+
+
+dnsNameserver: kube-dns.kube-system.svc.cluster.local
+localDomain: .gamify-it.svc.cluster.local
+
+
+# do not change
+deploymentName: ###DEPLOYMENT_NAME###

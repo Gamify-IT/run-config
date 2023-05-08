@@ -18,13 +18,13 @@ services:
   template-backend:
     <<: *template-service
     environment:
-      - BUGFINDER_URL=http://bugfinder-backend/api/v1
-      - CHICKENSHOCK_URL=http://chickenshock-backend/api/v1
-      - CROSSWORDPUZZLE_URL=http://crosswordpuzzle-backend/api/v1
-      - FINITEQUIZ_URL=http://finitequiz-backend/api/v1
+      - BUGFINDER_URL=http://${DEPLOYMENT_NAME}-bugfinder-backend/api/v1
+      - CHICKENSHOCK_URL=http://${DEPLOYMENT_NAME}-chickenshock-backend/api/v1
+      - CROSSWORDPUZZLE_URL=http://${DEPLOYMENT_NAME}-crosswordpuzzle-backend/api/v1
+      - FINITEQUIZ_URL=http://${DEPLOYMENT_NAME}-finitequiz-backend/api/v1
       - KEYCLOAK_ISSUER=${EXTERNAL_URL}/keycloak/realms/Gamify-IT
-      - KEYCLOAK_URL=http://keycloak/keycloak/realms/Gamify-IT
-      - OVERWORLD_URL=http://overworld-backend/api/v1
+      - KEYCLOAK_URL=http://${DEPLOYMENT_NAME}-keycloak/keycloak/realms/Gamify-IT
+      - OVERWORLD_URL=http://${DEPLOYMENT_NAME}-overworld-backend/api/v1
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     expose:
@@ -36,6 +36,7 @@ services:
     expose:
       - "5432"
     environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
 

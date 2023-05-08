@@ -1,6 +1,6 @@
 version: "3.8"
 
-services: 
+services:
 
   crosswordpuzzle-db:
     extends:
@@ -16,12 +16,10 @@ services:
       service: template-backend
     container_name: ${DEPLOYMENT_NAME}-crosswordpuzzle-backend
     image: ghcr.io/gamify-it/crosswordpuzzle-backend:$VERSION
-    expose:
-      - "80"
     depends_on:
       - crosswordpuzzle-db
     environment:
-      - POSTGRES_URL=postgresql://crosswordpuzzle-db:5432/postgres
+      - POSTGRES_URL=postgresql://${DEPLOYMENT_NAME}-crosswordpuzzle-db:5432/postgres
 
   crosswordpuzzle:
     extends:

@@ -1,6 +1,6 @@
 version: "3.8"
 
-services: 
+services:
 
   finitequiz-db:
     extends:
@@ -16,12 +16,10 @@ services:
       service: template-backend
     container_name: ${DEPLOYMENT_NAME}-finitequiz-backend
     image: ghcr.io/gamify-it/finitequiz-backend:$VERSION
-    expose:
-      - "80"
     depends_on:
       - finitequiz-db
     environment:
-      - POSTGRES_URL=postgresql://finitequiz-db:5432/postgres
+      - POSTGRES_URL=postgresql://${DEPLOYMENT_NAME}-finitequiz-db:5432/postgres
 
   finitequiz:
     extends:

@@ -1,6 +1,6 @@
 version: "3.8"
 
-services: 
+services:
 
   bugfinder-db:
     extends:
@@ -16,12 +16,10 @@ services:
       service: template-backend
     container_name: ${DEPLOYMENT_NAME}-bugfinder-backend
     image: ghcr.io/gamify-it/bugfinder-backend:$VERSION
-    expose:
-      - "80"
     depends_on:
       - bugfinder-db
     environment:
-      - POSTGRES_URL=postgresql://bugfinder-db:5432/postgres
+      - POSTGRES_URL=postgresql://${DEPLOYMENT_NAME}-bugfinder-db:5432/postgres
 
   bugfinder:
     extends:

@@ -1,6 +1,6 @@
 version: "3.8"
 
-services: 
+services:
 
   fileserver-db:
     extends:
@@ -16,13 +16,17 @@ services:
       service: template-backend
     container_name: ${DEPLOYMENT_NAME}-fileserver
     image: ghcr.io/gamify-it/sharry-fileserver:$VERSION
+    depends_on:
+      - fileserver-db
     volumes:
       - fileserver-storage:/storage
     environment:
       - BASE_URL=${EXTERNAL_URL}
-      - POSTGRES_URL=postgresql://fileserver-db:5432/postgres
+      - POSTGRES_URL=postgresql://${DEPLOYMENT_NAME}-fileserver-db:5432/postgres
       - KEYCLOAK_CLIENT_ID=fileserver
       - KEYCLOAK_CLIENT_SECRET=${FILESERVER_KEYCLOAK_CLIENT_SECRET}
+    expose:
+      - "80"
 
 volumes:
   fileserver-db:
