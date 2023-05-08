@@ -203,11 +203,18 @@ elif [[ "$DEPLOYMENT_TYPE" == "Kubernetes" ]]; then
     VERSION="$USER_VERSION"
     replaceVariables template/kubernetes/values.yaml > output/values.yaml
 
+    echo "To prevent deleting your persistentVolumes when running \"helm uninstall ${DEPLOYMENT_NAME}\", run the following command:"
+    echo 'for PERSISTENT_"VOLUME in $(kubectl get persistentvolume' \
+        '--output custom-columns=":.spec.claimRef.name,:.metadata.name"' \
+        '| grep gamify-it | sed "s|^.* ||g"); do"'
+    echo '    kubectl patch pv "$PERSISTENT_VOLUME" -p {"spec":{"persistentVolumeReclaimPolicy":"Retain"}};'
+    echo "done"
+    echo
     echo "Please change the \"tlsSecret\" in \"values.yaml\" to your existing secret or" \
         "create a new secret with the following command:"
     echo "    kubectl create secret tls \"${DEPLOYMENT_NAME}\"" \
         "--key \"${SSL_CERTIFICATE_KEY_PATH}\" --cert \"${SSL_CERTIFICATE_PATH}\""
-    echo "Deployment created. To start it run the following commands:"
+    echo "Deployment created. To start it, run the following commands:"
     echo "    helm install --create-namespace --namespace gamify-it ${DEPLOYMENT_NAME} ${DEPLOYMENT_NAME}-deployment"
 else
     echo "Unknown deployment type: \"${DEPLOYMENT_TYPE}\""

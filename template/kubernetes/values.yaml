@@ -1,5 +1,5 @@
 externalUrl: ###EXTERNAL_URL###
-
+deploymentName: ###DEPLOYMENT_NAME###
 fileserverKeycloakClientSecret: ###FILESERVER_KEYCLOAK_CLIENT_SECRET###
 
 ingress:
@@ -15,7 +15,3 @@ services: ###SERVICES###
 
 dnsNameserver: kube-dns.kube-system.svc.cluster.local
 localDomain: .gamify-it.svc.cluster.local
-
-
-# do not change
-deploymentName: ###DEPLOYMENT_NAME###
