@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+
+  test-data:
+    extends:
+      file: docker-compose-template-services.yaml
+      service: template-service
+    container_name: ${DEPLOYMENT_NAME}-test-data
+    image: ghcr.io/gamify-it/test-data:latest
+    environment:
+      DEPLOYMENT_NAME: $DEPLOYMENT_NAME
+      POSTGRES_SETUP: >
+        bugfinder/default.sql
+        chickenshock/default.sql
+        finitequiz/default.sql
+        keycloak/default.sql
+        overworld/default.sql
+        crosswordpuzzle/default.sql

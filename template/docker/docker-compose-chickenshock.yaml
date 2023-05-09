@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+
+  chickenshock-db:
+    extends:
+      file: docker-compose-template-services.yaml
+      service: template-db
+    container_name: ${DEPLOYMENT_NAME}-chickenshock-db
+    volumes:
+      - chickenshock-db:/var/lib/postgresql/data
+
+  chickenshock-backend:
+    extends:
+      file: docker-compose-template-services.yaml
+      service: template-backend
+    container_name: ${DEPLOYMENT_NAME}-chickenshock-backend
+    image: ghcr.io/gamify-it/chickenshock-backend:$VERSION
+    depends_on:
+      - chickenshock-db
+    environment:
+      - POSTGRES_URL=postgresql://${DEPLOYMENT_NAME}-chickenshock-db:5432/postgres
+
+  chickenshock:
+    extends:
+      file: docker-compose-template-services.yaml
+      service: template-frontend
+    container_name: ${DEPLOYMENT_NAME}-chickenshock
+    image: ghcr.io/gamify-it/chickenshock:$VERSION
+
+volumes:
+  chickenshock-db:
+    name: ${DEPLOYMENT_NAME}-chickenshock-db

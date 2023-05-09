@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+
+  fileserver-db:
+    extends:
+      file: docker-compose-template-services.yaml
+      service: template-db
+    container_name: ${DEPLOYMENT_NAME}-fileserver-db
+    volumes:
+      - fileserver-db:/var/lib/postgresql/data
+
+  fileserver:
+    extends:
+      file: docker-compose-template-services.yaml
+      service: template-backend
+    container_name: ${DEPLOYMENT_NAME}-fileserver
+    image: ghcr.io/gamify-it/sharry-fileserver:$VERSION
+    depends_on:
+      - fileserver-db
+    volumes:
+      - fileserver-storage:/storage
+    environment:
+      - BASE_URL=${EXTERNAL_URL}
+      - POSTGRES_URL=postgresql://${DEPLOYMENT_NAME}-fileserver-db:5432/postgres
+      - KEYCLOAK_CLIENT_ID=fileserver
+      - KEYCLOAK_CLIENT_SECRET=${FILESERVER_KEYCLOAK_CLIENT_SECRET}
+    expose:
+      - "80"
+
+volumes:
+  fileserver-db:
+    name: ${DEPLOYMENT_NAME}-fileserver-db
+  fileserver-storage:
+    name: ${DEPLOYMENT_NAME}-fileserver-storage
