@@ -9,7 +9,7 @@ The script can create a docker configuration or a helm chart for Kubernetes.
 To create a deployment, download the `create-deployment.sh` script:
 
 ```bash
-curl --output create-deployment.sh https://github.com/Gamify-IT/run-config/raw/main/create-deployment.sh && \
+curl --location --output create-deployment.sh https://github.com/Gamify-IT/run-config/raw/main/create-deployment.sh && \
     chmod +x create-deployment.sh
 ```
 
