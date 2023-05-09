@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 set -e
 
-CALLER_DIR="${PWD}"
 DEPENDENCIES=(curl docker tar gzip)
 WORKDIR="${PWD}/.temp-$(basename "$0")"
 
@@ -18,9 +17,6 @@ SSL_CERTIFICATE_KEY_PATH="/dev/null"
 SSL_ENABLED=true
 TEST_DATA=false
 PACKAGE_URL="https://api.github.com/repos/Gamify-IT/run-config/tarball/main"
-DOCKER_DEPLOYMENT_NAME=""
-DOCKER_EXTERNAL_URL=""
-DOCKER_VERSION=""
 VERSION=latest
 
 # help message
@@ -38,7 +34,7 @@ for ARGUMENT in "$@"; do
         echo "    --ssl-certificate-key PATH path of the key for the ssl certificate"
         echo "    --ssl-disable disable https, use only http"
         echo "    --test-data add test-data container"
-        echo "    --url the external url"
+        echo "    --url the external url you want to deploy the platform on"
         echo "    --version the version to use, default: latest"
         exit
     fi
@@ -103,7 +99,7 @@ if [[ -e "${DEPLOYMENT_NAME}-deployment" ]]; then
 fi
 
 if [[ -e "$WORKDIR" ]]; then
-    echo "\"${WORKDIR}\" already exists. Remove in 10 seconds."
+    echo "\"${WORKDIR}\" exists already. Removing in 10 seconds. Cancel this command to prevent data loss"
     sleep 10
     rm -f -r "$WORKDIR"
 fi
@@ -186,7 +182,7 @@ elif [[ "$DEPLOYMENT_TYPE" == "Kubernetes" ]]; then
         --expression "s|^\(        - name: \)|\1${DEPLOYMENT_NAME}-|g" \
         output/templates/*.yaml
 
-    # fix keycloak cannot bind port - change iinternal port to 8000
+    # fix keycloak cannot bind port - change internal port to 8000
     sed --in-place --expression "s|\(          image: ghcr.io/gamify-it/keycloak:{{ .Values.gamifyItVersion }}\)|            - name: KC_HTTP_PORT\n              value: \"8000\"\n\1|" \
         --expression "s|\(- containerPort: \)80|\18000|g" \
         output/templates/keycloak-deployment.yaml

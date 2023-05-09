@@ -1,7 +1,7 @@
 # Gamify-IT run-configuration
 
-This repository containing a script for creating a configuration to run the Gamify-IT project.
-The script can create a docker configuration or a port to kubernetes.
+This repository contains a script for creating a configuration to run the Gamify-IT project.
+The script can create a docker configuration or a helm chart for Kubernetes.
 
 
 ## Setup
