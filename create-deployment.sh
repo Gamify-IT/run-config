@@ -149,16 +149,6 @@ echo "create docker configuration"
     docker compose "${DOCKER_COMPOSE_FILES_ARGUMENTS[@]}" config > docker/docker-compose.yaml
 
 if [[ "$DEPLOYMENT_TYPE" == "DockerCompose" ]]; then
-    echo "create nginx configuration"
-    replaceVariables template/nginx/header-main.conf > output/nginx.conf
-    if [[ "$SSL_ENABLED" == true ]]; then
-        replaceVariables template/nginx/header-https.conf >> output/nginx.conf
-    else
-        replaceVariables template/nginx/header-http.conf >> output/nginx.conf
-    fi
-    replaceVariables template/nginx/body.conf >> output/nginx.conf
-    replaceVariables template/nginx/footer.conf >> output/nginx.conf
-
     mv docker/docker-compose.yaml output
 
     echo "Deployment created. To start it run the following command:"
