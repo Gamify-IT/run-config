@@ -42,6 +42,13 @@ services:
     container_name: ${DEPLOYMENT_NAME}-lecturer-interface
     image: ghcr.io/gamify-it/lecturer-interface:$VERSION
 
+  privacy-policy:
+    extends:
+      file: docker-compose-template-services.yaml
+      service: template-frontend
+    container_name: ${DEPLOYMENT_NAME}-privacy-policy
+    image: ghcr.io/gamify-it/privacy-policy:$VERSION
+
   third-party-license-notice:
     extends:
       file: docker-compose-template-services.yaml
