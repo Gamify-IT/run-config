@@ -162,7 +162,7 @@ elif [[ "$DEPLOYMENT_TYPE" == "Kubernetes" ]]; then
     chmod +x kompose
     ./kompose convert --chart --file docker/docker-compose.yaml --out output --error-on-warning --suppress-warnings
     rm output/README.md output/templates/reverse-proxy-*.yaml \
-        output/templates/docker-default-networkpolicy.yaml
+        output/templates/*-default-networkpolicy.yaml
 
     # add deployment name as prefix to names
     sed --in-place --expression "s|\(io.kompose.service: \)|\1${DEPLOYMENT_NAME}-|g" \
