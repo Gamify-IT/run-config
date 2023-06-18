@@ -1,3 +1,4 @@
 # ignore runtime data
 data/
 ssl-certs/
+*-deployment/
