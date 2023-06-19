@@ -11,7 +11,7 @@ FILESERVER_KEYCLOAK_CLIENT_SECRET=""
 HTTP_PORT=80
 HTTPS_PORT=443
 KOMPOSE_BINARY_URL="${KOMPOSE_BINARY_URL:-"https://github.com/kubernetes/kompose/releases/download/v1.28.0/kompose-linux-amd64"}"
-SERVICES="default keycloak bugfinder chickenshock crosswordpuzzle fileserver finitequiz memory towercrush"
+SERVICES="default keycloak bugfinder chickenshock crosswordpuzzle fileserver finitequiz memory regexgame towercrush"
 SSL_CERTIFICATE_PATH="/dev/null"
 SSL_CERTIFICATE_KEY_PATH="/dev/null"
 SSL_ENABLED=true
@@ -34,7 +34,7 @@ for ARGUMENT in "$@"; do
         echo "    --ssl-certificate-key PATH path of the key for the ssl certificate"
         echo "    --ssl-disable disable https, use only http"
         echo "    --test-data add test-data container"
-        echo "    --url the external url you want to deploy the platform on"
+        echo "    --url the base URL where Gamify-IT will be accessible on. Use protocol prefix and no trailing slashes, i.e. https://www.example.com"
         echo "    --version the version to use, default: latest"
         exit
     fi
