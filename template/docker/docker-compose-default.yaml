@@ -69,7 +69,7 @@ services:
       - ${SSL_CERTIFICATE_KEY_PATH}:/etc/nginx/ssl-certs/ssl-certificate-key.pem:ro
     environment:
       - DEPLOYMENT_NAME=$DEPLOYMENT_NAME
-      - SSL_ENABLED=$SSL_ENABLED
+      - SSL_ENABLED="false"
       - SERVICES=$SERVICES
     ports:
       - "${HTTP_PORT}:80"
