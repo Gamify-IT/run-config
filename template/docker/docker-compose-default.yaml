@@ -28,7 +28,7 @@ services:
       file: docker-compose-template-services.yaml
       service: template-frontend
     container_name: ${DEPLOYMENT_NAME}-landing-page
-    image: ghcr.io/gamify-it/landing-page:$VERSION
+    image: ghcr.io/gamify-it/landing-page:v1.6.0
 
   overworld:
     extends:
