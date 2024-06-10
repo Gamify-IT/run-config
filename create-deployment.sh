@@ -209,3 +209,7 @@ fi
 
 mv output ../"${DEPLOYMENT_NAME}-deployment"
 rm -f -r "$WORKDIR"
+
+# change to newly created dir and startup the docker container
+cd "../gamify-it-deployment"
+docker compose up
