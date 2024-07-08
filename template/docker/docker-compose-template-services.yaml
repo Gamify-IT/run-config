@@ -14,7 +14,10 @@ x-templates:
     restart: on-failure
     pull_policy: always
 
-services: 
+services:
+
+  data-service:
+    <<: *data-service
 
   template-service:
     <<: *template-service
