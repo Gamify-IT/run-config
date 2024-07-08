@@ -10,6 +10,10 @@ x-templates:
     restart: unless-stopped
     pull_policy: always
 
+  data-service: &data-service
+    restart: on-failure
+    pull_policy: always
+
 services: 
 
   template-service:

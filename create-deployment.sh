@@ -15,7 +15,7 @@ SERVICES="default keycloak bugfinder chickenshock crosswordpuzzle fileserver fin
 SSL_CERTIFICATE_PATH="/dev/null"
 SSL_CERTIFICATE_KEY_PATH="/dev/null"
 SSL_ENABLED=true
-TEST_DATA=false
+TEST_DATA=true
 PACKAGE_URL="https://api.github.com/repos/Gamify-IT/run-config/tarball/main"
 VERSION=latest
 
@@ -33,7 +33,7 @@ for ARGUMENT in "$@"; do
         echo "    --ssl-certificate PATH path of the ssl certificate"
         echo "    --ssl-certificate-key PATH path of the key for the ssl certificate"
         echo "    --ssl-disable disable https, use only http"
-        echo "    --test-data add test-data container"
+        echo "    --test-data remove test-data container"
         echo "    --url the base URL where Gamify-IT will be accessible on. Use protocol prefix and no trailing slashes, i.e. https://www.example.com"
         echo "    --version the version to use, default: latest"
         exit
@@ -70,7 +70,7 @@ while [[ -n "$1" ]]; do
     elif [[ "$1" == "--ssl-disable" ]]; then
         SSL_ENABLED=false
     elif [[ "$1" == "--test-data" ]]; then
-        TEST_DATA=true
+        TEST_DATA=false
     elif [[ "$1" == "--url" ]]; then
         shift
         EXTERNAL_URL="$1"

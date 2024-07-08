@@ -27,3 +27,24 @@ For information about the usage run:
 
 Further information about configuring the deployment are available in the 
 [docs](https://gamifyit-docs.readthedocs.io/en/latest/install-manuals/all-services/README.html).
+
+
+## Test Data
+Test data will be included with the run config. If you wish to disable the test data, run the following 
+command instead of the one above:
+```bash
+./create-deployment.sh --test-data
+```
+
+### Courses
+The test data will create a PSE course with some preconfigured minigames.
+
+### Users
+The following users are created with the test data.
+
+| Realm     |   Name   | Password | Description                                                        |
+|-----------|:--------:|:--------:|--------------------------------------------------------------------|
+| Keycloak  |  admin   |  admin   | Main admin user for Keycloak, can be used to create new users.     |
+| Gamify-IT | student  | student  | Test account when logging in as a student.                         |
+| Gamify-IT |   max    |   max    | A second student test account for demonstration and test purposes. |
+| Gamify-IT | lecturer | lecturer | A lecturer test account for full access on the lecturer interface. |
