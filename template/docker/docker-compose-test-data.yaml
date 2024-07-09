@@ -5,7 +5,7 @@ services:
   test-data:
     extends:
       file: docker-compose-template-services.yaml
-      service: template-service
+      service: data-service
     container_name: ${DEPLOYMENT_NAME}-test-data
     image: ghcr.io/gamify-it/test-data:latest
     environment:
