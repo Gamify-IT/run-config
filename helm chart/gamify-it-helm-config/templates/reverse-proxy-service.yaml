@@ -1,0 +1,22 @@
+apiVersion: v1
+# The Kubernetes service for the reverse-proxy entry
+# in the values file.
+kind: Service
+metadata:
+  name: {{ .Values.reverseProxy.name }}
+  labels:
+    app: {{ .Values.reverseProxy.name }}
+  annotations:
+    metallb.universe.tf/ip-allocated-from-pool: internal
+    metallb.universe.tf/loadBalancerIPs: 10.0.102.1
+spec:
+  type: LoadBalancer
+  ports:
+    {{- range .Values.reverseProxy.ports }}
+    - name: {{ .name }}
+      port: {{ .port }}
+      targetPort: {{ .targetPort }}
+      protocol: {{ .protocol }}
+    {{- end }}
+  selector:
+    app: {{ .Values.reverseProxy.name }}

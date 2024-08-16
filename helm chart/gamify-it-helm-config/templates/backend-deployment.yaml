@@ -1,0 +1,52 @@
+{{- range .Values.backends }}
+apiVersion: apps/v1
+# Generates Kubernetes Deployment resources with unique name and label
+# with proper configurations for each backend entry in the values file.
+kind: Deployment
+metadata:
+  name: {{ .name }}
+spec:
+  replicas: {{ .replicas }}
+  selector:
+    matchLabels:
+      app: {{ .name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .name }}
+    spec:
+      containers:
+        - name: {{ .name }}
+          image: {{ .image }}
+          imagePullPolicy: {{ .pullPolicy }}
+          ports:
+            - containerPort: {{ .exposePort }}
+          env:
+            {{- range $key, $value := .environment }}
+            - name: {{ $key }}
+              value: {{ $value }}
+            {{- end }}
+            {{- if eq .name "gamify-it-keycloak" }}
+            - name: KEYCLOAK_ADMIN
+              valueFrom:
+                secretKeyRef:
+                  name: keycloak-admin-secret
+                  key: KEYCLOAK_ADMIN
+            - name: KEYCLOAK_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: keycloak-admin-secret
+                  key: KEYCLOAK_ADMIN_PASSWORD
+            - name: KC_HOSTNAME_DEBUG
+              value: "true"
+            - name: QUARKUS_HTTP_ACCESS_LOG_ENABLED
+              value: "true"
+            {{- end }}
+          {{- if eq .name "gamify-it-keycloak" }}
+          securityContext:
+            runAsUser: 0
+            runAsGroup: 0
+            allowPrivilegeEscalation: true
+          {{- end }}
+---
+{{- end }}

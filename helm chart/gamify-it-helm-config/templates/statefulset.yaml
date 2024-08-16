@@ -1,0 +1,61 @@
+{{- range .Values.databases }}
+apiVersion: apps/v1
+# Configurations for the database pods
+# including the creation of persistent volume claims.
+kind: StatefulSet
+metadata:
+  name: {{ .name }}
+spec:
+  serviceName: "{{ .name }}"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .name }}
+    spec:
+      containers:
+        - name: {{ .name }}
+          image: {{ .image }}
+          ports:
+            - containerPort: {{ .exposePort }}
+          env:
+            {{- range $key, $value := .environment }}
+            - name: {{ $key }}
+              value: {{ $value }}
+            {{- end }}
+          volumeMounts:
+            - name: {{ .name }}-pvc
+              mountPath: {{ .volume.path }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .name }}-pvc
+      spec:
+        accessModes: [ "ReadWriteMany" ]
+        resources:
+          requests:
+            storage: 5Gi
+        storageClassName: manual
+        selector:
+          matchLabels:
+            app: {{ .name }}
+---
+{{- end }}
+
+{{- range .Values.databases }}
+apiVersion: v1
+# The services for the database pods.
+kind: Service
+metadata:
+  name: {{ .name }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: {{ .exposePort }}
+      targetPort: {{ .exposePort }}
+  selector:
+    app: {{ .name }}
+---
+{{- end }}

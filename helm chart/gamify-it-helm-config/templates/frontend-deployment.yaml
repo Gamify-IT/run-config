@@ -1,0 +1,27 @@
+{{- range .Values.frontends }}
+apiVersion: apps/v1
+# Generates Kubernetes Deployment resources with unique name and label
+# with proper configurations for each frontend entry in the values file.
+kind: Deployment
+metadata:
+  name: {{ .name }}
+  labels:
+    app: {{ .name }}
+spec:
+  replicas: {{ .replicas}}
+  selector:
+    matchLabels:
+      app: {{ .name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .name }}
+    spec:
+      containers:
+        - name: {{ .name }}
+          image: {{ .image }}
+          imagePullPolicy: {{ .pullPolicy }}
+          ports:
+            - containerPort: {{ .exposePort }}   
+---
+{{- end }}
