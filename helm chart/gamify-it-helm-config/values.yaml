@@ -1,0 +1,341 @@
+# The frontend values for the respective frontend resources
+frontends:
+  - name: gamify-it-bugfinder
+    image: "ghcr.io/gamify-it/bugfinder:latest"
+    replicas: 1
+    pullPolicy: Always
+    exposePort: 80
+  - name: gamify-it-chickenshock
+    image: "ghcr.io/gamify-it/chickenshock:latest"
+    replicas: 1
+    pullPolicy: Always
+    exposePort: 80
+  - name: gamify-it-crosswordpuzzle
+    image: "ghcr.io/gamify-it/crosswordpuzzle:latest"
+    replicas: 1
+    pullPolicy: Always
+    exposePort: 80
+  - name: gamify-it-finitequiz
+    image: "ghcr.io/gamify-it/finitequiz:latest"
+    replicas: 1
+    pullPolicy: Always
+    exposePort: 80
+  - name: gamify-it-landing-page
+    image: "ghcr.io/gamify-it/landing-page:latest"
+    replicas: 1
+    pullPolicy: Always
+    exposePort: 80
+  - name: gamify-it-lecturer-interface
+    image: "ghcr.io/gamify-it/lecturer-interface:latest"
+    replicas: 1
+    pullPolicy: Always
+    exposePort: 80
+  - name: gamify-it-memory
+    image: "ghcr.io/gamify-it/memory:latest"
+    replicas: 1
+    pullPolicy: Always
+    exposePort: 80
+  - name: gamify-it-overworld
+    image: "ghcr.io/gamify-it/overworld:latest"
+    replicas: 1
+    pullPolicy: Always
+    exposePort: 80
+  - name: gamify-it-privacy-policy
+    image: "ghcr.io/gamify-it/privacy-policy:latest"
+    replicas: 1
+    pullPolicy: Always
+    exposePort: 80
+  - name: gamify-it-regexgame
+    image: "ghcr.io/gamify-it/regexgame:latest"
+    replicas: 1
+    pullPolicy: Always
+    exposePort: 80
+  - name: gamify-it-third-party-license-notice
+    image: "ghcr.io/gamify-it/third-party-license-notice:latest"
+    replicas: 1
+    pullPolicy: Always
+    exposePort: 80
+  - name: gamify-it-towercrush
+    image: "ghcr.io/gamify-it/towercrush:latest"
+    replicas: 1
+    pullPolicy: Always
+    exposePort: 80
+
+# The backend values for the respective backend resources
+backends:
+  - name: gamify-it-bugfinder-backend
+    image: "ghcr.io/gamify-it/bugfinder-backend:latest"
+    replicas: 1
+    pullPolicy: Always
+    exposePort: 80
+    environment:
+      BUGFINDER_URL: "http://gamify-it-bugfinder-backend/api/v1"
+      CHICKENSHOCK_URL: "http://gamify-it-chickenshock-backend/api/v1"
+      CROSSWORDPUZZLE_URL: "http://gamify-it-crosswordpuzzle-backend/api/v1"
+      FINITEQUIZ_URL: "http://gamify-it-finitequiz-backend/api/v1"
+      KEYCLOAK_ISSUER: "https://gamifyit.sqa.ddnss.de/keycloak/realms/Gamify-IT"
+      KEYCLOAK_URL: "https://gamifyit.sqa.ddnss.de/keycloak/realms/Gamify-IT"
+      OVERWORLD_URL: "http://gamify-it-overworld-backend/api/v1"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_URL: "postgresql://gamify-it-bugfinder-db:5432/postgres"
+      POSTGRES_USER: "postgres"
+  - name: gamify-it-chickenshock-backend
+    image: "ghcr.io/gamify-it/chickenshock-backend:latest"
+    replicas: 1
+    pullPolicy: Always
+    exposePort: 80
+    environment:
+      BUGFINDER_URL: "http://gamify-it-bugfinder-backend/api/v1"
+      CHICKENSHOCK_URL: "http://gamify-it-chickenshock-backend/api/v1"
+      CROSSWORDPUZZLE_URL: "http://gamify-it-crosswordpuzzle-backend/api/v1"
+      FINITEQUIZ_URL: "http://gamify-it-finitequiz-backend/api/v1"
+      KEYCLOAK_ISSUER: "https://gamifyit.sqa.ddnss.de/keycloak/realms/Gamify-IT"
+      KEYCLOAK_URL: "https://gamifyit.sqa.ddnss.de/keycloak/realms/Gamify-IT"
+      OVERWORLD_URL: "http://gamify-it-overworld-backend/api/v1"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_URL: "postgresql://gamify-it-chickenshock-db:5432/postgres"
+      POSTGRES_USER: "postgres"
+  - name: gamify-it-crosswordpuzzle-backend
+    image: "ghcr.io/gamify-it/crosswordpuzzle-backend:latest"
+    replicas: 1
+    pullPolicy: Always
+    exposePort: 80
+    environment:
+      BUGFINDER_URL: "http://gamify-it-bugfinder-backend/api/v1"
+      CHICKENSHOCK_URL: "http://gamify-it-chickenshock-backend/api/v1"
+      CROSSWORDPUZZLE_URL: "http://gamify-it-crosswordpuzzle-backend/api/v1"
+      FINITEQUIZ_URL: "http://gamify-it-finitequiz-backend/api/v1"
+      KEYCLOAK_ISSUER: "https://gamifyit.sqa.ddnss.de/keycloak/realms/Gamify-IT"
+      KEYCLOAK_URL: "https://gamifyit.sqa.ddnss.de/keycloak/realms/Gamify-IT"
+      OVERWORLD_URL: "http://gamify-it-overworld-backend/api/v1"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_URL: "postgresql://gamify-it-crosswordpuzzle-db:5432/postgres"
+      POSTGRES_USER: "postgres"
+  - name: gamify-it-finitequiz-backend
+    image: "ghcr.io/gamify-it/finitequiz-backend:latest"
+    replicas: 1
+    pullPolicy: Always
+    exposePort: 80
+    environment:
+      BUGFINDER_URL: "http://gamify-it-bugfinder-backend/api/v1"
+      CHICKENSHOCK_URL: "http://gamify-it-chickenshock-backend/api/v1"
+      CROSSWORDPUZZLE_URL: "http://gamify-it-crosswordpuzzle-backend/api/v1"
+      FINITEQUIZ_URL: "http://gamify-it-finitequiz-backend/api/v1"
+      KEYCLOAK_ISSUER: "https://gamifyit.sqa.ddnss.de/keycloak/realms/Gamify-IT"
+      KEYCLOAK_URL: "https://gamifyit.sqa.ddnss.de/keycloak/realms/Gamify-IT"
+      OVERWORLD_URL: "http://gamify-it-overworld-backend/api/v1"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_URL: "postgresql://gamify-it-finitequiz-db:5432/postgres"
+      POSTGRES_USER: "postgres"
+  - name: gamify-it-keycloak
+    image: "ghcr.io/gamify-it/keycloak:latest"
+    replicas: 1
+    pullPolicy: Always
+    exposePort: 80
+    environment:
+      KC_DB_URL: "jdbc:postgresql://gamify-it-keycloak-db:5432/postgres"
+      KC_HOSTNAME_URL: "https://gamifyit.sqa.ddnss.de/keycloak"
+      KC_HOSTNAME_ADMIN_URL: "https://gamifyit.sqa.ddnss.de/keycloak"
+      KC_HTTP_RELATIVE_PATH: "/keycloak/"
+  - name: gamify-it-memory-backend
+    image: "ghcr.io/gamify-it/memory-backend:latest"
+    replicas: 1
+    pullPolicy: Always
+    exposePort: 80
+    environment:
+      BUGFINDER_URL: "http://gamify-it-bugfinder-backend/api/v1"
+      CHICKENSHOCK_URL: "http://gamify-it-chickenshock-backend/api/v1"
+      CROSSWORDPUZZLE_URL: "http://gamify-it-crosswordpuzzle-backend/api/v1"
+      FINITEQUIZ_URL: "http://gamify-it-finitequiz-backend/api/v1"
+      KEYCLOAK_ISSUER: "https://gamifyit.sqa.ddnss.de/keycloak/realms/Gamify-IT"
+      KEYCLOAK_URL: "https://gamifyit.sqa.ddnss.de/keycloak/realms/Gamify-IT"
+      OVERWORLD_URL: "http://gamify-it-overworld-backend/api/v1"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_URL: "postgresql://gamify-it-memory-db:5432/postgres"
+      POSTGRES_USER: "postgres"
+  - name: gamify-it-overworld-backend
+    image: "ghcr.io/gamify-it/overworld-backend:latest"
+    replicas: 1
+    pullPolicy: Always
+    exposePort: 80
+    environment:
+      BUGFINDER_URL: "http://gamify-it-bugfinder-backend/api/v1"
+      CHICKENSHOCK_URL: "http://gamify-it-chickenshock-backend/api/v1"
+      CROSSWORDPUZZLE_URL: "http://gamify-it-crosswordpuzzle-backend/api/v1"
+      FINITEQUIZ_URL: "http://gamify-it-finitequiz-backend/api/v1"
+      KEYCLOAK_ISSUER: "https://gamifyit.sqa.ddnss.de/keycloak/realms/Gamify-IT"
+      KEYCLOAK_URL: "https://gamifyit.sqa.ddnss.de/keycloak/realms/Gamify-IT"
+      OVERWORLD_URL: "http://gamify-it-overworld-backend/api/v1"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_URL: "postgresql://gamify-it-overworld-db:5432/postgres"
+      POSTGRES_USER: "postgres"
+  - name: gamify-it-regexgame-backend
+    image: "ghcr.io/gamify-it/regexgame-backend:latest"
+    replicas: 1
+    pullPolicy: Always
+    exposePort: 80
+    environment:
+      BUGFINDER_URL: "http://gamify-it-bugfinder-backend/api/v1"
+      CHICKENSHOCK_URL: "http://gamify-it-chickenshock-backend/api/v1"
+      CROSSWORDPUZZLE_URL: "http://gamify-it-crosswordpuzzle-backend/api/v1"
+      FINITEQUIZ_URL: "http://gamify-it-finitequiz-backend/api/v1"
+      KEYCLOAK_ISSUER: "https://gamifyit.sqa.ddnss.de/keycloak/realms/Gamify-IT"
+      KEYCLOAK_URL: "https://gamifyit.sqa.ddnss.de/keycloak/realms/Gamify-IT"
+      OVERWORLD_URL: "http://gamify-it-overworld-backend/api/v1"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_URL: "postgresql://gamify-it-regexgame-db:5432/postgres"
+      POSTGRES_USER: "postgres"
+  - name: gamify-it-towercrush-backend
+    image: "ghcr.io/gamify-it/towercrush-backend:latest"
+    replicas: 1
+    pullPolicy: Always
+    exposePort: 80
+    environment:
+      BUGFINDER_URL: "http://gamify-it-bugfinder-backend/api/v1"
+      CHICKENSHOCK_URL: "http://gamify-it-chickenshock-backend/api/v1"
+      CROSSWORDPUZZLE_URL: "http://gamify-it-crosswordpuzzle-backend/api/v1"
+      FINITEQUIZ_URL: "http://gamify-it-finitequiz-backend/api/v1"
+      KEYCLOAK_ISSUER: "https://gamifyit.sqa.ddnss.de/keycloak/realms/Gamify-IT"
+      KEYCLOAK_URL: "https://gamifyit.sqa.ddnss.de/keycloak/realms/Gamify-IT"
+      OVERWORLD_URL: "http://gamify-it-overworld-backend/api/v1"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_URL: "postgresql://gamify-it-towercrush-db:5432/postgres"
+      POSTGRES_USER: "postgres"
+
+# The database values for the respective database resources
+databases:
+  - name: gamify-it-bugfinder-db
+    image: postgres:14-alpine
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    exposePort: 5432
+    volume:
+      name: bugfinder-db-volume
+      path: /var/lib/postgresql/data
+  - name: gamify-it-chickenshock-db
+    image: postgres:14-alpine
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    exposePort: 5432
+    volume:
+      name: chickenshock-db-volume
+      path: /var/lib/postgresql/data
+  - name: gamify-it-crosswordpuzzle-db
+    image: postgres:14-alpine
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    exposePort: 5432
+    volume:
+      name: crosswordpuzzle-db-volume
+      path: /var/lib/postgresql/data
+  - name: gamify-it-finitequiz-db
+    image: postgres:14-alpine
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    exposePort: 5432
+    volume:
+      name: finitequiz-db-volume
+      path: /var/lib/postgresql/data
+  - name: gamify-it-keycloak-db
+    image: postgres:14-alpine
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    exposePort: 5432
+    volume:
+      name: keycloak-db-volume
+      path: /var/lib/postgresql/data
+  - name: gamify-it-memory-db
+    image: postgres:14-alpine
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    exposePort: 5432
+    volume:
+      name: memory-db-volume
+      path: /var/lib/postgresql/data
+  - name: gamify-it-overworld-db
+    image: postgres:14-alpine
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    exposePort: 5432
+    volume:
+      name: overworld-db-volume
+      path: /var/lib/postgresql/data
+  - name: gamify-it-regexgame-db
+    image: postgres:14-alpine
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    exposePort: 5432
+    volume:
+      name: regexgame-db-volume
+      path: /var/lib/postgresql/data
+  - name: gamify-it-towercrush-db
+    image: postgres:14-alpine
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    exposePort: 5432
+    volume:
+      name: towercrush-db-volume
+      path: /var/lib/postgresql/data
+  
+# Reverse-proxy values
+reverseProxy:
+  name: gamify-it-reverse-proxy
+  image: "ghcr.io/gamify-it/reverse-proxy:latest"
+  replicas: 1
+  pullPolicy: Always
+  environment:
+    BEHIND_REVERSE_PROXY: "true"
+    DEPLOYMENT_NAME: gamify-it
+    DNS_NAMESERVER: 10.233.0.3
+    LOCAL_DOMAIN: .gamify-it.svc.cluster.local
+    SERVICES: "default keycloak bugfinder chickenshock crosswordpuzzle fileserver finitequiz memory regexgame towercrush"
+    SSL_ENABLED: "false"
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+      protocol: TCP
+    - name: https
+      port: 443
+      targetPort: 443
+      protocol: TCP
+  volumes:
+    - name: ssl-cert
+      mountPath: /etc/nginx/ssl-certs/ssl-cert.pem
+      readOnly: true
+      hostPath: /dev/null
+    - name: ssl-key
+      mountPath: /etc/nginx/ssl-certs/ssl-certificate-key.pem
+      readOnly: true
+      hostPath: /dev/null
+
+# Enable or disable ingress resource
+ingress:
+  enabled: true
+
+# Configuration for the Horizontal Pod Autoscaler (HPA)
+autoscaling:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 75
+

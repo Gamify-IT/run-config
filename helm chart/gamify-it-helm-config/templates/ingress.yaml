@@ -1,0 +1,30 @@
+{{- if .Values.ingress.enabled -}}
+apiVersion: networking.k8s.io/v1
+# The ingress resource that handles the external access by managing
+# traffic to the respective addresses of the pods in the cluster.
+kind: Ingress
+metadata:
+  name: gamify-it-ingress
+  annotations:
+    ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/preserve-trailing-slash: "true"
+spec:
+  rules:
+    - host: gamifyit.sqa.ddnss.de
+      http:
+        paths:
+          - path: /keycloak
+            pathType: Prefix
+            backend:
+              service:
+                name: gamify-it-keycloak
+                port:
+                  number: 80
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: gamify-it-reverse-proxy
+                port:
+                  number: 80
+{{- end }}

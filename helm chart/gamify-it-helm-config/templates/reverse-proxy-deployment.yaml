@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+# Deploys a reverse-proxy resource based on the configurations
+# for the reverse-proxy entry in the values file.
+kind: Deployment
+metadata:
+  name: {{ .Values.reverseProxy.name }}
+  labels:
+    app: {{ .Values.reverseProxy.name }}
+spec:
+  replicas: {{ .Values.reverseProxy.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.reverseProxy.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.reverseProxy.name }}
+    spec:
+      containers:
+        - name: {{ .Values.reverseProxy.name }}
+          image: {{ .Values.reverseProxy.image }}
+          imagePullPolicy: {{ .Values.reverseProxy.pullPolicy }}
+          env:
+            - name: BEHIND_REVERSE_PROXY
+              value: "true"
+            - name: DEPLOYMENT_NAME
+              value: {{ .Values.reverseProxy.environment.DEPLOYMENT_NAME }}
+            - name: DNS_NAMESERVER
+              value: {{ .Values.reverseProxy.environment.DNS_NAMESERVER }}
+            - name: LOCAL_DOMAIN
+              value: {{ .Values.reverseProxy.environment.LOCAL_DOMAIN }}
+            - name: SERVICES
+              value: {{ .Values.reverseProxy.environment.SERVICES }}
+            - name: SSL_ENABLED
+              value: "false"
+          ports:
+            {{- range .Values.reverseProxy.ports }}
+            - name: {{ .name }}
+              containerPort: {{ .port }}
+              protocol: {{ .protocol }}
+            {{- end }}
+          volumeMounts:
+            {{- range .Values.reverseProxy.volumes }}
+            - name: {{ .name }}
+              mountPath: {{ .mountPath }}
+              readOnly: {{ .readOnly }}
+            {{- end }}
+      volumes:
+        {{- range .Values.reverseProxy.volumes }}
+        - name: {{ .name }}
+          hostPath:
+            path: {{ .hostPath }}
+        {{- end }}
