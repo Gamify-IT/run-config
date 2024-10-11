@@ -103,23 +103,30 @@ if [[ -e "$WORKDIR" ]]; then
     sleep 10
     rm -f -r "$WORKDIR"
 fi
+
 mkdir "$WORKDIR"
 cd "$WORKDIR"
 mkdir docker output template
-curl --silent --location "$PACKAGE_URL" | \
-    tar --directory template --extract --gzip --strip-components 2 --wildcards '*/template'
+
+if [[ "$OS" == "Darwin" ]]; then
+	curl --silent --location "$PACKAGE_URL" | \
+		gtar --directory template --extract --gzip --strip-components 2 --wildcards '*/template'
+else 
+	curl --silent --location "$PACKAGE_URL" | \
+		tar --directory template --extract --gzip --strip-components 2 --wildcards '*/template'
+fi
 
 replaceVariables(){
-    sed --expression "s|###DEPLOYMENT_NAME###|${DEPLOYMENT_NAME}|g" \
-        --expression "s|###EXTERNAL_URL###|${EXTERNAL_URL}|g" \
-        --expression "s|###FILESERVER_KEYCLOAK_CLIENT_SECRET###|${FILESERVER_KEYCLOAK_CLIENT_SECRET}|g" \
-        --expression "s|###HTTP_PORT###|${HTTP_PORT}|g" \
-        --expression "s|###HTTPS_PORT###|${HTTPS_PORT}|g" \
-        --expression "s|###SERVICES###|${SERVICES}|g" \
-        --expression "s|###SSL_CERTIFICATE_PATH###|${SSL_CERTIFICATE_PATH}|g" \
-        --expression "s|###SSL_CERTIFICATE_KEY_PATH###|${SSL_CERTIFICATE_KEY_PATH}|g" \
-        --expression "s|###SSL_ENABLED###|${SSL_ENABLED}|g" \
-        --expression "s|###VERSION###|${VERSION}|g" \
+    sed --e "s|###DEPLOYMENT_NAME###|${DEPLOYMENT_NAME}|g" \
+        --e "s|###EXTERNAL_URL###|${EXTERNAL_URL}|g" \
+        --e "s|###FILESERVER_KEYCLOAK_CLIENT_SECRET###|${FILESERVER_KEYCLOAK_CLIENT_SECRET}|g" \
+        --e "s|###HTTP_PORT###|${HTTP_PORT}|g" \
+        --e "s|###HTTPS_PORT###|${HTTPS_PORT}|g" \
+        --e "s|###SERVICES###|${SERVICES}|g" \
+        --e "s|###SSL_CERTIFICATE_PATH###|${SSL_CERTIFICATE_PATH}|g" \
+        --e "s|###SSL_CERTIFICATE_KEY_PATH###|${SSL_CERTIFICATE_KEY_PATH}|g" \
+        --e "s|###SSL_ENABLED###|${SSL_ENABLED}|g" \
+        --e "s|###VERSION###|${VERSION}|g" \
         "$1"
 }
 
@@ -165,18 +172,18 @@ elif [[ "$DEPLOYMENT_TYPE" == "Kubernetes" ]]; then
         output/templates/*-default-networkpolicy.yaml
 
     # add deployment name as prefix to names
-    sed --in-place --expression "s|\(io.kompose.service: \)|\1${DEPLOYMENT_NAME}-|g" \
-        --expression "s|\(claimName: \)|\1${DEPLOYMENT_NAME}-|g" \
-        --expression "s|^\(  name: \)|\1${DEPLOYMENT_NAME}-|g" \
-        --expression "s|^\(              name: \)|\1${DEPLOYMENT_NAME}-|g" \
-        --expression "s|^\(        - name: \)|\1${DEPLOYMENT_NAME}-|g" \
+    sed --i '' --e "s|\(io.kompose.service: \)|\1${DEPLOYMENT_NAME}-|g" \
+        --e "s|\(claimName: \)|\1${DEPLOYMENT_NAME}-|g" \
+        --e "s|^\(  name: \)|\1${DEPLOYMENT_NAME}-|g" \
+        --e "s|^\(              name: \)|\1${DEPLOYMENT_NAME}-|g" \
+        --e "s|^\(        - name: \)|\1${DEPLOYMENT_NAME}-|g" \
         output/templates/*.yaml
 
     # fix keycloak cannot bind port - change internal port to 8000
-    sed --in-place --expression "s|\(          image: ghcr.io/gamify-it/keycloak:{{ .Values.gamifyItVersion }}\)|            - name: KC_HTTP_PORT\n              value: \"8000\"\n\1|" \
-        --expression "s|\(- containerPort: \)80|\18000|g" \
+    sed --i '' --e "s|\(          image: ghcr.io/gamify-it/keycloak:{{ .Values.gamifyItVersion }}\)|            - name: KC_HTTP_PORT\n              value: \"8000\"\n\1|" \
+        --e "s|\(- containerPort: \)80|\18000|g" \
         output/templates/keycloak-deployment.yaml
-    sed --in-place "s|\(targetPort: \)80|\18000|g" output/templates/keycloak-service.yaml
+    sed --i '' "s|\(targetPort: \)80|\18000|g" output/templates/keycloak-service.yaml
 
     for FILE in template/kubernetes/templates/*.yaml; do
         replaceVariables "$FILE" > "output/templates/$(basename "$FILE")"
