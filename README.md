@@ -28,10 +28,8 @@ For information about the usage run:
 Further information about configuring the deployment are available in the 
 [docs](https://gamifyit-docs.readthedocs.io/en/latest/install-manuals/all-services/README.html).
 
-## Kubernetes Helm Chart
-We provide an already set up Kubernetes helm chart, which can be updated and reapplied on a cluster.
-
-Further information about how to apply the helm chart can be found in the [docs](https://gamifyit-docs.readthedocs.io/en/latest/dev-manuals/deployment/kubernetes_deployment.html).
+## Terraform Deployment
+We provide terraform configurations, which can be updated and reapplied on a cluster.
 
 ## Test Data
 Test data will be included with the run config. If you wish to disable the test data, run the following 
