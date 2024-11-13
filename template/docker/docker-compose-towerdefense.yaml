@@ -21,12 +21,12 @@ services:
     environment:
       - POSTGRES_URL=postgresql://${DEPLOYMENT_NAME}-towerdefense-db:5432/postgres
 
-  #towerdefense:
-    #extends:
-      #file: docker-compose-template-services.yaml
-      #service: template-frontend
-    #container_name: ${DEPLOYMENT_NAME}-towerdefense
-    #image: ghcr.io/gamify-it/towerdefense:$VERSION
+  towerdefense:
+    extends:
+      file: docker-compose-template-services.yaml
+      service: template-frontend
+    container_name: ${DEPLOYMENT_NAME}-towerdefense
+    image: ghcr.io/gamify-it/towerdefense:$VERSION
 
 volumes:
   towerdefense-db:
