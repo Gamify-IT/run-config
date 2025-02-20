@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+
+  towerdefense-db:
+    extends:
+      file: docker-compose-template-services.yaml
+      service: template-db
+    container_name: ${DEPLOYMENT_NAME}-towerdefense-db
+    volumes:
+    - towerdefense-db:/var/lib/postgresql/data
+
+  towerdefense-backend:
+    extends:
+      file: docker-compose-template-services.yaml
+      service: template-backend
+    container_name: ${DEPLOYMENT_NAME}-towerdefense-backend
+    image: ghcr.io/gamify-it/towerdefense-backend:$VERSION
+    depends_on:
+      - towerdefense-db
+    environment:
+      - POSTGRES_URL=postgresql://${DEPLOYMENT_NAME}-towerdefense-db:5432/postgres
+
+  towerdefense:
+    extends:
+      file: docker-compose-template-services.yaml
+      service: template-frontend
+    container_name: ${DEPLOYMENT_NAME}-towerdefense
+    image: ghcr.io/gamify-it/towerdefense:$VERSION
+
+volumes:
+  towerdefense-db:
+    name: ${DEPLOYMENT_NAME}-towerdefense-db

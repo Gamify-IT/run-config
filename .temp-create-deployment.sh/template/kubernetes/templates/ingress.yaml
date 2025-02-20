@@ -1,0 +1,37 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ###DEPLOYMENT_NAME###-ingress
+  annotations:
+    ingress.kubernetes.io/force-ssl-redirect: {{ quote .Values.ingress.sslEnabled }}
+    nginx.ingress.kubernetes.io/preserve-trailing-slash: "true"
+    nginx.org/listen-ports: {{ quote .Values.ingress.httpPort }}
+    nginx.org/listen-ports-ssl: {{ quote .Values.ingress.httpsPort }}
+
+
+spec:
+  rules:
+    - host: {{ .Values.externalUrl | trimPrefix "http://" | trimPrefix "https://" }}
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: ###DEPLOYMENT_NAME###-reverse-proxy
+              port:
+                number: 80
+        # keycloak needs Forwarded-headers. To pass them correctly, skip reverse-proxy
+        - path: /keycloak/
+          pathType: Prefix
+          backend:
+            service:
+              name: ###DEPLOYMENT_NAME###-keycloak
+              port:
+                number: 80
+  {{ if .Values.ingress.sslEnabled }}
+  tls:
+    - hosts:
+        - {{ .Values.externalUrl | trimPrefix "http://" | trimPrefix "https://" }}
+      secretName: {{ .Values.ingress.tlsSecret }}
+  {{ end }}

@@ -1,0 +1,81 @@
+version: "3.8"
+
+name: ${DEPLOYMENT_NAME}
+
+services:
+
+  overworld-db:
+    extends:
+      file: docker-compose-template-services.yaml
+      service: template-db
+    container_name: ${DEPLOYMENT_NAME}-overworld-db
+    volumes:
+      - overworld-db:/var/lib/postgresql/data
+
+  overworld-backend:
+    extends:
+      file: docker-compose-template-services.yaml
+      service: template-backend
+    container_name: ${DEPLOYMENT_NAME}-overworld-backend
+    image: ghcr.io/gamify-it/overworld-backend:$VERSION
+    depends_on:
+      - overworld-db
+    environment:
+      - POSTGRES_URL=postgresql://${DEPLOYMENT_NAME}-overworld-db:5432/postgres
+
+  landing-page:
+    extends:
+      file: docker-compose-template-services.yaml
+      service: template-frontend
+    container_name: ${DEPLOYMENT_NAME}-landing-page
+    image: ghcr.io/gamify-it/landing-page:$VERSION
+
+  overworld:
+    extends:
+      file: docker-compose-template-services.yaml
+      service: template-frontend
+    container_name: ${DEPLOYMENT_NAME}-overworld
+    image: ghcr.io/gamify-it/overworld:$VERSION
+
+  lecturer-interface:
+    extends:
+      file: docker-compose-template-services.yaml
+      service: template-frontend
+    container_name: ${DEPLOYMENT_NAME}-lecturer-interface
+    image: ghcr.io/gamify-it/lecturer-interface:$VERSION
+
+  privacy-policy:
+    extends:
+      file: docker-compose-template-services.yaml
+      service: template-frontend
+    container_name: ${DEPLOYMENT_NAME}-privacy-policy
+    image: ghcr.io/gamify-it/privacy-policy:$VERSION
+
+  third-party-license-notice:
+    extends:
+      file: docker-compose-template-services.yaml
+      service: template-frontend
+    container_name: ${DEPLOYMENT_NAME}-third-party-license-notice
+    image: ghcr.io/gamify-it/third-party-license-notice:$VERSION
+
+  reverse-proxy:
+    extends:
+      file: docker-compose-template-services.yaml
+      service: template-service
+    container_name: ${DEPLOYMENT_NAME}-reverse-proxy
+    image: ghcr.io/gamify-it/reverse-proxy:$VERSION
+    volumes:
+      - ${SSL_CERTIFICATE_PATH}:/etc/nginx/ssl-certs/ssl-cert.pem:ro
+      - ${SSL_CERTIFICATE_KEY_PATH}:/etc/nginx/ssl-certs/ssl-certificate-key.pem:ro
+    environment:
+      - DEPLOYMENT_NAME=$DEPLOYMENT_NAME
+      - SSL_ENABLED="false"
+      - SERVICES=$SERVICES
+    ports:
+      - "${HTTP_PORT}:80"
+      - "${HTTPS_PORT}:443"
+
+
+volumes:
+  overworld-db:
+    name: ${DEPLOYMENT_NAME}-overworld-db

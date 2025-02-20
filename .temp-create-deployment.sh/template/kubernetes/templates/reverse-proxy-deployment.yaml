@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ###DEPLOYMENT_NAME###-reverse-proxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: ###DEPLOYMENT_NAME###-reverse-proxy
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.network/docker-default: "true"
+        io.kompose.service: ###DEPLOYMENT_NAME###-reverse-proxy
+    spec:
+      containers:
+        - env:
+            - name: BEHIND_REVERSE_PROXY
+              value: "true"
+            - name: DEPLOYMENT_NAME
+              value: ###DEPLOYMENT_NAME###
+            - name: DNS_NAMESERVER
+              value: {{ .Values.dnsNameserver }}
+            - name: LOCAL_DOMAIN
+              value: {{ .Values.localDomain}}
+            - name: SERVICES
+              value: "{{ .Values.services }}"
+            - name: SSL_ENABLED
+              value: "###SSL_ENABLED###"
+          image: ghcr.io/gamify-it/reverse-proxy:{{ .Values.gamifyItVersion }}
+          name: ###DEPLOYMENT_NAME###-reverse-proxy
+          ports:
+            - containerPort: 80
+            - containerPort: 443
+      restartPolicy: Always

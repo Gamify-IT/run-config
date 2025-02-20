@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+
+  regexgame-db:
+    extends:
+      file: docker-compose-template-services.yaml
+      service: template-db
+    container_name: ${DEPLOYMENT_NAME}-regexgame-db
+    volumes:
+    - regexgame-db:/var/lib/postgresql/data
+
+  regexgame-backend:
+    extends:
+      file: docker-compose-template-services.yaml
+      service: template-backend
+    container_name: ${DEPLOYMENT_NAME}-regexgame-backend
+    image: ghcr.io/gamify-it/regexgame-backend:$VERSION
+    depends_on:
+      - regexgame-db
+    environment:
+      - POSTGRES_URL=postgresql://${DEPLOYMENT_NAME}-regexgame-db:5432/postgres
+
+  regexgame:
+    extends:
+      file: docker-compose-template-services.yaml
+      service: template-frontend
+    container_name: ${DEPLOYMENT_NAME}-regexgame
+    image: ghcr.io/gamify-it/regexgame:$VERSION
+
+volumes:
+  regexgame-db:
+    name: ${DEPLOYMENT_NAME}-regexgame-db

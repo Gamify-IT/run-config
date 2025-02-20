@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+
+  finitequiz-db:
+    extends:
+      file: docker-compose-template-services.yaml
+      service: template-db
+    container_name: ${DEPLOYMENT_NAME}-finitequiz-db
+    volumes:
+    - finitequiz-db:/var/lib/postgresql/data
+
+  finitequiz-backend:
+    extends:
+      file: docker-compose-template-services.yaml
+      service: template-backend
+    container_name: ${DEPLOYMENT_NAME}-finitequiz-backend
+    image: ghcr.io/gamify-it/finitequiz-backend:$VERSION
+    depends_on:
+      - finitequiz-db
+    environment:
+      - POSTGRES_URL=postgresql://${DEPLOYMENT_NAME}-finitequiz-db:5432/postgres
+
+  finitequiz:
+    extends:
+      file: docker-compose-template-services.yaml
+      service: template-frontend
+    container_name: ${DEPLOYMENT_NAME}-finitequiz
+    image: ghcr.io/gamify-it/finitequiz:$VERSION
+
+volumes:
+  finitequiz-db:
+    name: ${DEPLOYMENT_NAME}-finitequiz-db

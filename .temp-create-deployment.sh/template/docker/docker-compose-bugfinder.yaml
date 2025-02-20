@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+
+  bugfinder-db:
+    extends:
+      file: docker-compose-template-services.yaml
+      service: template-db
+    container_name: ${DEPLOYMENT_NAME}-bugfinder-db
+    volumes:
+      - bugfinder-db:/var/lib/postgresql/data
+
+  bugfinder-backend:
+    extends:
+      file: docker-compose-template-services.yaml
+      service: template-backend
+    container_name: ${DEPLOYMENT_NAME}-bugfinder-backend
+    image: ghcr.io/gamify-it/bugfinder-backend:$VERSION
+    depends_on:
+      - bugfinder-db
+    environment:
+      - POSTGRES_URL=postgresql://${DEPLOYMENT_NAME}-bugfinder-db:5432/postgres
+
+  bugfinder:
+    extends:
+      file: docker-compose-template-services.yaml
+      service: template-frontend
+    container_name: ${DEPLOYMENT_NAME}-bugfinder
+    image: ghcr.io/gamify-it/bugfinder:$VERSION
+
+volumes:
+  bugfinder-db:
+    name: ${DEPLOYMENT_NAME}-bugfinder-db
