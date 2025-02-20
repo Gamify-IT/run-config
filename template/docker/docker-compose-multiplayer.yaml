@@ -5,7 +5,7 @@ services:
   multiplayer:
     extends:
       file: docker-compose-template-services.yaml
-      service: multiplayer
+      service: template-frontend
     container_name: ${DEPLOYMENT_NAME}-multiplayer
     #image: ghcr.io/gamify-it/multiplayer:$VERSION
     build: ../multiplayer-server

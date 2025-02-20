@@ -16,7 +16,7 @@ SSL_CERTIFICATE_PATH="/dev/null"
 SSL_CERTIFICATE_KEY_PATH="/dev/null"
 SSL_ENABLED=true
 TEST_DATA=true
-PACKAGE_URL="https://api.github.com/repos/Gamify-IT/run-config/tarball/main"
+PACKAGE_URL="https://api.github.com/repos/Gamify-IT/run-config/tarball/feature/multiplayer-server"
 VERSION=latest
 
 # help message
