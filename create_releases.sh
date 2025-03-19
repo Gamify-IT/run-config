@@ -14,7 +14,7 @@ MESSAGE=$2
 REPOS=("test-data" "crosswordpuzzle-backend" "crosswordpuzzle" "chickenshock-backend" "chickenshock" "overworld" "memory" "finitequiz-backend" "bugfinder" "memory-backend"
  "bugfinder-backend" "finitequiz" "towerdefense-backend" "towerdefense" "towercrush" "regexgame" "regexgame-backend" "towercrush-backend" "landing-page" "overworld-backend" 
  "run-config" "lecturer-interface" "reverse-proxy" "functionbuilder-backend" "functionbuilder" "keycloak" "third-party-license-notice" "privacy-policy" "authentification-validator"
- "sharry-fileserver")
+ "sharry-fileserver" "multiplayer-server")
 
 # Loop over each repository and create a release
 for REPO in "${REPOS[@]}"; do

@@ -11,12 +11,12 @@ FILESERVER_KEYCLOAK_CLIENT_SECRET=""
 HTTP_PORT=80
 HTTPS_PORT=443
 KOMPOSE_BINARY_URL="${KOMPOSE_BINARY_URL:-"https://github.com/kubernetes/kompose/releases/download/v1.28.0/kompose-linux-amd64"}"
-SERVICES="default keycloak bugfinder chickenshock crosswordpuzzle fileserver finitequiz memory multiplayer regexgame towercrush towerdefense"
+SERVICES="default keycloak bugfinder chickenshock crosswordpuzzle fileserver finitequiz memory regexgame towercrush towerdefense"
 SSL_CERTIFICATE_PATH="/dev/null"
 SSL_CERTIFICATE_KEY_PATH="/dev/null"
 SSL_ENABLED=true
 TEST_DATA=true
-PACKAGE_URL="https://api.github.com/repos/Gamify-IT/run-config/tarball/feature/multiplayer-server"
+PACKAGE_URL="https://api.github.com/repos/Gamify-IT/run-config/tarball/feature/main"
 VERSION=latest
 
 # help message
