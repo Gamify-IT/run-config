@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+
+  umlgame-db:
+    extends:
+      file: docker-compose-template-services.yaml
+      service: template-db
+    container_name: ${DEPLOYMENT_NAME}-umlgame-db
+    volumes:
+    - umlgame-db:/var/lib/postgresql/data
+
+  umlgame-backend:
+    extends:
+      file: docker-compose-template-services.yaml
+      service: template-backend
+    container_name: ${DEPLOYMENT_NAME}-umlgame-backend
+    image: ghcr.io/gamify-it/umlgame-backend:$VERSION
+    depends_on:
+      - umlgame-db
+    environment:
+      - POSTGRES_URL=postgresql://${DEPLOYMENT_NAME}-umlgame-db:5432/postgres
+
+  umlgame:
+    extends:
+      file: docker-compose-template-services.yaml
+      service: template-frontend
+    container_name: ${DEPLOYMENT_NAME}-umlgame
+    image: ghcr.io/gamify-it/umlgame:$VERSION
+
+volumes:
+  umlgame-db:
+    name: ${DEPLOYMENT_NAME}-umlgame-db
