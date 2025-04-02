@@ -30,6 +30,14 @@ services:
     container_name: ${DEPLOYMENT_NAME}-landing-page
     image: ghcr.io/gamify-it/landing-page:$VERSION
 
+  multiplayer-server:
+    container_name: ${DEPLOYMENT_NAME}-multiplayer-server
+    expose:
+      - "80"
+    image: ghcr.io/gamify-it/multiplayer-server:$VERSION
+    pull_policy: always
+    restart: unless-stopped
+
   overworld:
     extends:
       file: docker-compose-template-services.yaml
