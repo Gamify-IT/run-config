@@ -30,11 +30,15 @@ services:
     container_name: ${DEPLOYMENT_NAME}-landing-page
     image: ghcr.io/gamify-it/landing-page:$VERSION
 
-  multiplayer-server:
-    container_name: ${DEPLOYMENT_NAME}-multiplayer-server
+  multiplayer-backend:
+    container_name: ${DEPLOYMENT_NAME}-multiplayer-backend
+    environment:
+      KEYCLOAK_ISSUER: http://localhost/keycloak/realms/Gamify-IT
+      KEYCLOAK_URL: http://gamify-it-keycloak/keycloak/realms/Gamify-IT
+      OVERWORLD_URL: http://gamify-it-overworld-backend/api/v1
     expose:
       - "80"
-    image: ghcr.io/gamify-it/multiplayer-server:$VERSION
+    image: ghcr.io/gamify-it/multiplayer-backend:$VERSION
     pull_policy: always
     restart: unless-stopped
 
