@@ -9,6 +9,7 @@ locals {
     regexgame       = var.regexgame_backend_version
     towercrush      = var.towercrush_backend_version
     towerdefense    = var.towerdefense_backend_version
+    multiplayer     = var.multiplayer_backend_version
   }
 }
 
@@ -104,12 +105,15 @@ resource "kubernetes_deployment" "backend" {
             value = "postgresql://gamify-it-${each.key}-db:5432/postgres"
           }
 
-          env {
-            name = "POSTGRES_PASSWORD"
-            value_from {
-              secret_key_ref {
-                name = kubernetes_secret.postgres_password_secret[each.key].metadata[0].name
-                key  = "password"
+          dynamic "env" {
+            for_each = contains(local.db_services, each.key) ? [1] : []
+            content {
+              name = "POSTGRES_PASSWORD"
+              value_from {
+                secret_key_ref {
+                  name = kubernetes_secret.postgres_password_secret[each.key].metadata[0].name
+                  key  = "password"
+                }
               }
             }
           }

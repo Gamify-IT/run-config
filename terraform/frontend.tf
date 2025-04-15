@@ -12,7 +12,7 @@ locals {
     memory                       = var.memory_version
     regexgame                    = var.regexgame_version
     towercrush                   = var.towercrush_version
-    "tower-defense"              = var.towerdefense_version
+    towerdefense                 = var.towerdefense_version
   }
 }
 

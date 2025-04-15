@@ -54,7 +54,7 @@ resource "kubernetes_deployment" "reverse_proxy" {
 
           env {
             name  = "SERVICES"
-            value = "default keycloak bugfinder chickenshock crosswordpuzzle fileserver finitequiz memory regexgame towercrush"
+            value = "default keycloak bugfinder chickenshock crosswordpuzzle fileserver finitequiz memory regexgame towercrush towerdefense"
           }
 
           env {

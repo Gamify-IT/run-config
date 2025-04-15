@@ -18,6 +18,10 @@ resource "helm_release" "keycloak" {
     extraEnvVars:
       - name: "KEYCLOAK_EXTRA_ARGS"
         value: "--import-realm"
+      - name: "KEYCLOAK_HOSTNAME"
+        value: "${var.endpoint}/keycloak"
+      - name: "KEYCLOAK_ADMIN_HOSTNAME"
+        value: "${var.endpoint}/keycloak"
     auth:
       adminUser: admin
       adminPassword: ${var.keycloak_admin_password}

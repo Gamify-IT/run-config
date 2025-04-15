@@ -195,6 +195,13 @@ variable "overworld_backend_version" {
   default     = null
 }
 
+variable "multiplayer_backend_version" {
+  type        = string
+  description = "The version of the multiplayer backend image to use"
+  nullable    = true
+  default     = null
+}
+
 variable "landing_page_version" {
   type        = string
   description = "The version of the landing page image to use"
