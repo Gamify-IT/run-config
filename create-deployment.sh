@@ -25,7 +25,6 @@ for ARGUMENT in "$@"; do
         echo "ARGUMENT can be"
         echo "    --http-port PORT the http port, default: $HTTP_PORT"
         echo "    --https-port PORT the https port, default: $HTTPS_PORT"
-        echo "    --kubernetes create deployment for Kubernetes instead of Docker Compose"
         echo "    --name NAME the name of the deployment. Is used as prefix for container names"
         echo "    --services SERVICES specify services to deploy, default: \"${SERVICES}\""
         echo "    --ssl-certificate PATH path of the ssl certificate"
